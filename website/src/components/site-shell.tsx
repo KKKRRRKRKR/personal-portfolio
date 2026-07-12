@@ -14,19 +14,22 @@ export function SiteShell({ children }: SiteShellProps) {
         Skip to content
       </a>
       <header className="site-header">
-        <div className="site-header__content">
+        <div className="site-frame site-header__content">
           <Link className="site-brand" href="/">
             PERSONAL PORTFOLIO
           </Link>
           <PrimaryNavigation />
         </div>
       </header>
-      <main className="site-main" id="main-content">
+      <main className="site-main" id="main-content" tabIndex={-1}>
         {children}
       </main>
       <footer className="site-footer">
-        <div className="site-footer__content">
+        <div className="site-frame site-footer__content">
           <p>Personal engineering portfolio</p>
+          <p className="site-footer__label">
+            Selected work and technical notes
+          </p>
         </div>
       </footer>
     </div>
