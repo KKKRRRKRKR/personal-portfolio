@@ -28,8 +28,27 @@ export function SiteShell({ children }: SiteShellProps) {
         <div className="site-frame site-footer__content">
           <p>XG — engineering portfolio</p>
           <p className="site-footer__label">
-            Selected work and technical notes
+            Engineering systems and selected work
           </p>
+          <nav
+            className="site-footer__navigation"
+            aria-label="Footer navigation"
+          >
+            <ul>
+              <li>
+                <Link href="/">Home</Link>
+              </li>
+              <li>
+                <Link href="/about">About</Link>
+              </li>
+              <li>
+                <Link href="/projects">Projects</Link>
+              </li>
+              <li>
+                <Link href="/contact">Contact</Link>
+              </li>
+            </ul>
+          </nav>
         </div>
       </footer>
     </div>
