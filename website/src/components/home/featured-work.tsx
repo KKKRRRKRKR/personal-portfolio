@@ -34,6 +34,11 @@ export function FeaturedWork() {
                 ))}
               </ul>
               <p className="project-record__status">{project.statusLabel}</p>
+              {project.detailRouteAvailable ? (
+                <TextLink href={`/projects/${project.slug}`}>
+                  Open case study
+                </TextLink>
+              ) : null}
             </article>
           ))}
         </div>

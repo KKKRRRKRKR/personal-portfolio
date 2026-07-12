@@ -1,4 +1,5 @@
 import { PageIntro } from "@/components/page-intro";
+import { TextLink } from "@/components/ui/text-link";
 import { projects } from "@/content/projects";
 
 export const metadata = { title: "Projects" };
@@ -49,6 +50,11 @@ export default function ProjectsPage() {
                       <li key={discipline}>{discipline}</li>
                     ))}
                   </ul>
+                  {project.detailRouteAvailable ? (
+                    <TextLink href={`/projects/${project.slug}`}>
+                      View project record
+                    </TextLink>
+                  ) : null}
                 </div>
               </article>
             ))}

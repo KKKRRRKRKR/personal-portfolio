@@ -25,7 +25,11 @@ export function PrimaryNavigation() {
             <Link
               href={item.href}
               aria-current={
-                normalizedPathname === item.href ? "page" : undefined
+                normalizedPathname === item.href ||
+                (item.href !== "/" &&
+                  normalizedPathname.startsWith(`${item.href}/`))
+                  ? "page"
+                  : undefined
               }
             >
               {item.label}
