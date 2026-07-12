@@ -9,7 +9,7 @@ export function HomeHero() {
     <section className="home-hero" aria-labelledby="home-title">
       <div className="site-frame home-hero__grid">
         <div className="home-hero__main">
-          <p className="eyebrow">Engineering portfolio</p>
+          <p className="eyebrow">XG</p>
           <h1 className="home-hero__title" id="home-title">
             Engineering systems for spectrum, compliance, and product decisions.
           </h1>
