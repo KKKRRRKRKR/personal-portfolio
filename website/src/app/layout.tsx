@@ -6,10 +6,11 @@ import { SiteShell } from "@/components/site-shell";
 
 export const metadata: Metadata = {
   title: {
-    default: "Personal Engineering Portfolio",
-    template: "%s | Personal Engineering Portfolio",
+    default: "Personal Portfolio",
+    template: "%s | Personal Portfolio",
   },
-  description: "A professional engineering portfolio.",
+  description:
+    "Engineering projects, technical systems, compliance tools, and selected technical writing.",
 };
 
 export default function RootLayout({
