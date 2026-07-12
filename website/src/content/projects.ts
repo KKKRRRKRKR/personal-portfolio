@@ -5,6 +5,13 @@ export interface ProjectSystemSection {
   description: string;
 }
 
+export interface ProjectEvidence {
+  caption: string;
+  decisions: readonly { title: string; description: string }[];
+  facts: readonly { label: string; value: string }[];
+  kind: "spectrum" | "planning-flow";
+}
+
 export interface ProjectRecord {
   slug: string;
   index: string;
@@ -15,6 +22,7 @@ export interface ProjectRecord {
   detailIntroduction: string;
   challenge: string;
   approach: string;
+  evidence: ProjectEvidence;
   systemSections: readonly ProjectSystemSection[];
   currentState: string;
   nextSteps: readonly string[];
@@ -38,11 +46,41 @@ const projectRecords = [
       "A structured visualization environment that brings regional spectrum information, country-level review, filtering, and power-limit context into one navigable interface.",
     eyebrow: "Project record / RF systems",
     detailIntroduction:
-      "This case-study record introduces a map-first interface for examining public-safe spectrum information across regions. It covers the interface structure, the comparison problem it addresses, and the system boundaries prepared for future implementation notes and selected views.",
+      "The dashboard turns region-specific spectrum allocation and power information into one comparison surface, so an engineer can move from a global view to a country-level review without losing the context behind a decision.",
     challenge:
       "Regional spectrum information can be difficult to review consistently across markets. Frequency ranges, power context, and regional differences need a structured visual interface so that comparison and navigation remain clear without treating the information as a single flat list.",
     approach:
       "The approach combines map-first navigation with structured spectrum representation, region and country filtering, and frequency and power context. It keeps data separate from interface behavior so that public example content, import and export paths, and later implementation detail can evolve independently.",
+    evidence: {
+      kind: "spectrum",
+      caption:
+        "Sanitized spectrum-review model showing how regional ranges and review context can remain comparable in one working surface.",
+      facts: [
+        { label: "Review unit", value: "Region, country, and frequency band" },
+        {
+          label: "System scope",
+          value: "5 connected interface and data areas",
+        },
+        { label: "Decision boundary", value: "Public-safe example data only" },
+      ],
+      decisions: [
+        {
+          title: "Make geography the entry point",
+          description:
+            "Start from a market or region, then preserve that context as the review moves into individual frequency ranges.",
+        },
+        {
+          title: "Keep comparison visible",
+          description:
+            "Represent ranges and power context together instead of distributing the review across disconnected tables.",
+        },
+        {
+          title: "Separate data from interaction",
+          description:
+            "Keep public examples, import paths, and interface behavior independent so the portfolio view can remain safe and maintainable.",
+        },
+      ],
+    },
     systemSections: [
       {
         title: "Data model",
@@ -96,11 +134,44 @@ const projectRecords = [
       "A traceable planning workflow that connects structured product inputs, deterministic requirement logic, review outputs, assumptions, and human confirmation.",
     eyebrow: "Project record / compliance systems",
     detailIntroduction:
-      "This case-study record outlines a structured planning system for turning product inputs into a reviewable draft compliance plan. It covers the workflow model, its traceable system parts, and the controls retained for future public-safe interface and implementation material.",
+      "The planning system converts product facts and rule applicability into a reviewable draft plan while keeping assumptions, missing inputs, and the human confirmation step visible throughout.",
     challenge:
       "Compliance planning requires structured product inputs, rule applicability, traceable outputs, assumptions, and human review. Relevant information may be distributed across documents and reviewer knowledge, so the project focuses on making the planning workflow more structured and reviewable.",
     approach:
       "The approach starts with structured Product DNA inputs and deterministic applicability logic, then groups results into requirement packages and reviewable draft outputs. Assumptions and missing inputs remain visible, with human review serving as the final confirmation step.",
+    evidence: {
+      kind: "planning-flow",
+      caption:
+        "Sanitized decision-flow model showing how product facts, deterministic logic, and human review remain traceable in the planning workflow.",
+      facts: [
+        { label: "Input scope", value: "Structured product and market facts" },
+        {
+          label: "System scope",
+          value: "6 connected planning and review areas",
+        },
+        {
+          label: "Decision boundary",
+          value: "Draft output requires human confirmation",
+        },
+      ],
+      decisions: [
+        {
+          title: "Structure inputs before rules",
+          description:
+            "Use explicit Product DNA fields so the planning context is visible before a rule path is evaluated.",
+        },
+        {
+          title: "Keep assumptions in the output",
+          description:
+            "Carry uncertainty and incomplete information forward rather than hiding it behind an apparently final plan.",
+        },
+        {
+          title: "Make review a system boundary",
+          description:
+            "Treat human confirmation as a required control, not a postscript to an automated recommendation.",
+        },
+      ],
+    },
     systemSections: [
       {
         title: "Product inputs",

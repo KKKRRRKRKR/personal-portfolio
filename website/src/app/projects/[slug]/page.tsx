@@ -2,9 +2,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { ProjectDetailHeader } from "@/components/projects/project-detail-header";
+import { ProjectEvidenceSummary } from "@/components/projects/project-evidence-summary";
 import { ProjectDetailSection } from "@/components/projects/project-detail-section";
 import { ProjectRelatedNavigation } from "@/components/projects/project-related-navigation";
 import { ProjectSystemStructure } from "@/components/projects/project-system-structure";
+import { ProjectVisual } from "@/components/projects/project-visual";
 import { getProjectBySlug, projects } from "@/content/projects";
 
 type ProjectDetailPageProps = {
@@ -54,46 +56,49 @@ export default async function ProjectDetailPage({
     <>
       <ProjectDetailHeader project={project} />
       <div className="site-frame project-detail-content">
-        <ProjectDetailSection
-          id="project-overview"
-          label="01 / Overview"
-          title="Project overview"
-        >
+        <ProjectDetailSection id="project-overview" title="Project thesis">
           <p>{project.detailIntroduction}</p>
         </ProjectDetailSection>
         <ProjectDetailSection
+          id="project-scale"
+          title="Project scale"
+          variant="wide"
+        >
+          <ProjectEvidenceSummary mode="facts" project={project} />
+        </ProjectDetailSection>
+        <ProjectDetailSection
           id="project-challenge"
-          label="02 / Challenge"
-          title="Challenge"
+          title="Context and constraints"
         >
           <p>{project.challenge}</p>
         </ProjectDetailSection>
         <ProjectDetailSection
           id="project-approach"
-          label="03 / Approach"
-          title="Approach"
+          title="Selected engineering decisions"
         >
           <p>{project.approach}</p>
+          <ProjectEvidenceSummary mode="decisions" project={project} />
         </ProjectDetailSection>
         <ProjectDetailSection
           id="project-system-structure"
-          label="04 / System structure"
-          title="System structure"
+          title="System model"
+          variant="wide"
         >
           <ProjectSystemStructure sections={project.systemSections} />
         </ProjectDetailSection>
         <ProjectDetailSection
-          id="project-current-state"
-          label="05 / Current state"
-          title="Current state"
+          id="project-interface-evidence"
+          title="Interface evidence"
+          variant="wide"
         >
-          <p>{project.currentState}</p>
+          <ProjectVisual project={project} variant="interface" />
         </ProjectDetailSection>
         <ProjectDetailSection
-          id="project-next-steps"
-          label="06 / Next development steps"
-          title="Next development steps"
+          id="project-current-state"
+          title="Outcome and current boundaries"
+          variant="outcome"
         >
+          <p>{project.currentState}</p>
           <ul className="project-next-steps">
             {project.nextSteps.map((step) => (
               <li key={step}>{step}</li>

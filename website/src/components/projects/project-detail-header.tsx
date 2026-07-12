@@ -1,3 +1,4 @@
+import { ProjectVisual } from "@/components/projects/project-visual";
 import { TextLink } from "@/components/ui/text-link";
 import type { ProjectRecord } from "@/content/projects";
 
@@ -10,8 +11,7 @@ export function ProjectDetailHeader({ project }: ProjectDetailHeaderProps) {
     <header className="project-detail-header">
       <div className="site-frame project-detail-header__grid">
         <div className="project-detail-header__rail">
-          <p className="eyebrow">{project.eyebrow}</p>
-          <p className="project-detail-header__index">{project.index}</p>
+          <p className="eyebrow">Project</p>
           <dl className="project-detail-header__metadata">
             <div>
               <dt>Type</dt>
@@ -26,14 +26,7 @@ export function ProjectDetailHeader({ project }: ProjectDetailHeaderProps) {
         <div className="project-detail-header__content">
           <h1>{project.title}</h1>
           <p>{project.summary}</p>
-          <ul
-            className="metadata-list"
-            aria-label={`${project.title} disciplines`}
-          >
-            {project.disciplines.map((discipline) => (
-              <li key={discipline}>{discipline}</li>
-            ))}
-          </ul>
+          <ProjectVisual project={project} variant="detail" />
           <TextLink href="/projects">Back to all Projects</TextLink>
         </div>
       </div>

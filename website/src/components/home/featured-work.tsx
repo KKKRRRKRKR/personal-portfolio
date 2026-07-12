@@ -1,3 +1,4 @@
+import { ProjectVisual } from "@/components/projects/project-visual";
 import { TextLink } from "@/components/ui/text-link";
 import { featuredProjects } from "@/content/projects";
 
@@ -12,33 +13,28 @@ export function FeaturedWork() {
           <div>
             <p className="eyebrow">Selected work</p>
             <h2 className="home-section__title" id="selected-work-title">
-              Project records
+              Selected projects
             </h2>
           </div>
           <TextLink href="/projects">Browse all projects</TextLink>
         </div>
         <div className="home-work__grid">
           {featuredProjects.map((project) => (
-            <article className="project-record" key={project.slug}>
-              <p className="project-record__label">
-                Selected project / {project.index}
-              </p>
-              <h3 className="project-record__title">{project.title}</h3>
-              <p className="project-record__description">{project.summary}</p>
-              <ul
-                className="metadata-list"
-                aria-label={`${project.title} topics`}
-              >
-                {project.disciplines.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-              <p className="project-record__status">{project.statusLabel}</p>
-              {project.detailRouteAvailable ? (
-                <TextLink href={`/projects/${project.slug}`}>
-                  Open case study
-                </TextLink>
-              ) : null}
+            <article className="project-presentation" key={project.slug}>
+              <ProjectVisual project={project} variant="feature" />
+              <div className="project-presentation__content">
+                <p className="project-record__label">Selected project</p>
+                <h3 className="project-record__title">{project.title}</h3>
+                <p className="project-record__description">{project.summary}</p>
+                <p className="project-record__facts">
+                  {project.projectType} · {project.statusLabel}
+                </p>
+                {project.detailRouteAvailable ? (
+                  <TextLink href={`/projects/${project.slug}`}>
+                    Open case study
+                  </TextLink>
+                ) : null}
+              </div>
             </article>
           ))}
         </div>

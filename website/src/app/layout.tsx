@@ -6,8 +6,8 @@ import { SiteShell } from "@/components/site-shell";
 
 export const metadata: Metadata = {
   title: {
-    default: "Personal Portfolio",
-    template: "%s | Personal Portfolio",
+    default: "Gul",
+    template: "%s | Gul",
   },
   description:
     "Engineering projects, technical systems, compliance tools, and selected technical writing.",

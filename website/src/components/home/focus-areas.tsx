@@ -2,19 +2,19 @@ const focusAreas = [
   {
     description:
       "Purpose-built interfaces and utilities for structured technical work.",
-    label: "Focus area / 01",
+    label: "Tools",
     title: "Engineering Tools",
   },
   {
     description:
       "Traceable workflows that connect product inputs, decision logic, and review outputs.",
-    label: "Focus area / 02",
+    label: "Workflows",
     title: "Compliance Systems",
   },
   {
     description:
       "Clear visual models for complex regional, regulatory, or engineering data.",
-    label: "Focus area / 03",
+    label: "Visualization",
     title: "Technical Visualization",
   },
 ];

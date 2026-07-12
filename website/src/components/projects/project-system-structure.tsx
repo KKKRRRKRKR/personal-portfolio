@@ -8,16 +8,15 @@ export function ProjectSystemStructure({
   sections,
 }: ProjectSystemStructureProps) {
   return (
-    <ol className="project-system-structure">
-      {sections.map((section, index) => (
+    <ul className="project-system-structure">
+      {sections.map((section) => (
         <li key={section.title}>
-          <span>{(index + 1).toString().padStart(2, "0")}</span>
           <div>
             <h3>{section.title}</h3>
             <p>{section.description}</p>
           </div>
         </li>
       ))}
-    </ol>
+    </ul>
   );
 }

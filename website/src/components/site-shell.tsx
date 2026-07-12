@@ -16,7 +16,7 @@ export function SiteShell({ children }: SiteShellProps) {
       <header className="site-header">
         <div className="site-frame site-header__content">
           <Link className="site-brand" href="/">
-            PERSONAL PORTFOLIO
+            Gul
           </Link>
           <PrimaryNavigation />
         </div>
@@ -26,7 +26,7 @@ export function SiteShell({ children }: SiteShellProps) {
       </main>
       <footer className="site-footer">
         <div className="site-frame site-footer__content">
-          <p>Personal engineering portfolio</p>
+          <p>Gul — engineering portfolio</p>
           <p className="site-footer__label">
             Selected work and technical notes
           </p>
