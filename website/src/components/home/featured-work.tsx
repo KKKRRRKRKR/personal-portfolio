@@ -1,21 +1,5 @@
 import { TextLink } from "@/components/ui/text-link";
-
-const projects = [
-  {
-    description:
-      "An interactive, map-first interface for reviewing wireless spectrum and power information across global markets.",
-    label: "Selected project / 01",
-    metadata: ["Data visualization", "RF spectrum", "Interactive dashboard"],
-    title: "Global RF Spectrum Dashboard",
-  },
-  {
-    description:
-      "A structured decision system that converts product inputs and rule logic into a reviewable draft compliance plan.",
-    label: "Selected project / 02",
-    metadata: ["Decision system", "Compliance workflow", "Rule-based planning"],
-    title: "Compliance Plan Generator",
-  },
-];
+import { featuredProjects } from "@/content/projects";
 
 export function FeaturedWork() {
   return (
@@ -34,24 +18,22 @@ export function FeaturedWork() {
           <TextLink href="/projects">Browse all projects</TextLink>
         </div>
         <div className="home-work__grid">
-          {projects.map((project) => (
-            <article className="project-record" key={project.title}>
-              <p className="project-record__label">{project.label}</p>
-              <h3 className="project-record__title">{project.title}</h3>
-              <p className="project-record__description">
-                {project.description}
+          {featuredProjects.map((project) => (
+            <article className="project-record" key={project.slug}>
+              <p className="project-record__label">
+                Selected project / {project.index}
               </p>
+              <h3 className="project-record__title">{project.title}</h3>
+              <p className="project-record__description">{project.summary}</p>
               <ul
                 className="metadata-list"
                 aria-label={`${project.title} topics`}
               >
-                {project.metadata.map((item) => (
+                {project.disciplines.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
-              <p className="project-record__status">
-                Case study in preparation
-              </p>
+              <p className="project-record__status">{project.statusLabel}</p>
             </article>
           ))}
         </div>
