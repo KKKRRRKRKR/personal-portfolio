@@ -59,10 +59,19 @@ This phase maps partially to the old Phase 5 case-study work, Phase 6 deployment
 
 ### Phase 4-4 – RF Dashboard Portfolio Integration
 
-- **Objective:** Connect the RF project record and case study to the approved public Dashboard candidate.
-- **Expected outputs:** Public-safe visual evidence, accurate status/version metadata, a distinct live-tool action, disclosure context, and fallback behavior.
-- **Implementation boundary:** Keep editorial case-study content separate from the standalone tool and avoid fictional evidence.
-- **Review gate:** The case study, tool link, version, and disclosures agree and expose no sensitive information.
+#### Phase 4-4A – Local Public-Light Candidate
+
+- **Objective:** Produce a deterministic, sanitized standalone candidate directly from the locked canonical source.
+- **Expected outputs:** Self-contained `0.1.0` candidate, transformation script, release manifest, sanitization log, and local browser/export validation.
+- **Implementation boundary:** No portfolio application change, deployment, push, live URL, or public-tool registration.
+- **Local status:** Completed and validated locally. The candidate has 175 public records, zero external dependencies, a repeatable SHA-256, completed localhost browser validation, and no live URL. See [RF Dashboard Light 0.1.0 Local Candidate](../releases/rf-dashboard-light-0.1.0-local-candidate.md).
+
+#### Phase 4-4B – Portfolio Connection and Release Gate
+
+- **Objective:** Connect the RF project record and case study to an approved public Dashboard destination.
+- **Expected outputs:** Public-safe visual evidence, accurate status/version metadata, a distinct live-tool action, disclosure context, fallback behavior, and deployed-artifact validation.
+- **Implementation boundary:** Not started. Keep editorial case-study content separate from the standalone tool, avoid fictional evidence, and do not register a live-tool URL before hosting and release approval.
+- **Review gate:** The case study, tool link, version, disclosures, deployment state, and released hashes agree and expose no sensitive information.
 
 ### Phase 4-5 – CPG Status Calibration
 
