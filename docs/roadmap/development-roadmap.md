@@ -10,6 +10,14 @@ Build in small, reviewable increments that produce durable value at every stage.
 
 Each phase should have a clear completion boundary, maintain a deployable website where applicable, and avoid coupling portfolio presentation to unstable project internals. New features are introduced only when they improve professional communication, project understanding, or maintainability.
 
+## Current Implementation Rebaseline
+
+The repository has completed the website foundation, the shared `Engineering Evidence Editorial` visual system, and the core pages in the approved current navigation scope: Home, About, Projects, and Contact. The RF Spectrum Dashboard and Compliance Plan Generator also have project-detail structures. Technical Notes and Resume remain reserved routes and future work rather than active navigation destinations.
+
+Current implementation work is defined by [Phase 4 – RF Dashboard Public Launch Foundation](./phase-4-rf-dashboard-public-launch.md). This rebaselined phase combines public-safe case-study preparation, a reusable project/tool architecture, and preparation for the first public RF Dashboard Light deployment. It draws from the older case-study, production-deployment, and interactive-tool phases below without repeating completed Core Pages work.
+
+The Compliance Plan Generator remains in active development. It is not a Phase 4 public-deployment deliverable and must not be presented as complete.
+
 ## Phase Breakdown
 
 ### Phase 0 - Vision and Visual Direction
@@ -26,7 +34,7 @@ Established the repository structure for `website/`, `projects/`, `docs/`, and `
 
 ### Phase 2 - Architecture Design
 
-**Status:** In progress; complete when this roadmap is approved.
+**Status:** Completed
 
 Define the long-term architecture, information architecture, visual design system, and delivery roadmap that guide implementation decisions.
 
@@ -34,26 +42,31 @@ Define the long-term architecture, information architecture, visual design syste
 
 ### Phase 3 - Website Foundation Implementation
 
+**Status:** Completed locally; preview and production deployment remain future Phase 4 work.
+
 Create the static-first website foundation inside `website/`.
 
 - Initialize Next.js inside `website/`.
 - Configure TypeScript, Tailwind CSS, and the MDX foundation.
 - Establish linting, formatting, and the base directory structure.
 - Validate local development and production builds.
-- Configure an initial Vercel preview deployment.
+- Prepare the application for a later preview deployment.
 
-**Completion criteria:** The website starts locally, passes linting and formatting checks, produces a validated production build, and has a working Vercel preview deployment.
+**Completion criteria:** The website starts locally, passes linting, formatting, and type checks, and produces a validated production build. Preview and production deployment are not required for historical Phase 3 completion.
 
 ### Phase 4 - Core Pages and Design System
+
+**Status:** Completed for the approved current navigation scope; Technical Notes and Resume remain reserved future work.
 
 Implement the approved visual system and the core portfolio experience.
 
 - Build shared navigation and footer.
-- Implement Home, About, Projects index, Technical Notes index, Resume, and Contact pages.
+- Implement Home, About, Projects, and Contact in the approved shared navigation.
+- Keep Technical Notes and Resume as reserved routes for later work.
 - Add responsive behavior and an accessibility foundation.
 - Apply the approved visual design system consistently.
 
-**Completion criteria:** Every core route is reachable through shared navigation, responsive at supported sizes, aligned with the design system, and verified for baseline keyboard access, contrast, and semantic structure.
+**Completion criteria:** Home, About, Projects, and Contact are reachable through shared navigation, responsive at supported sizes, aligned with the design system, and verified for baseline keyboard access, contrast, and semantic structure. Technical Notes and Resume are not required in navigation for this phase to be complete.
 
 ### Phase 5 - Project Case Studies
 
@@ -101,9 +114,9 @@ Operate the portfolio as a maintained professional record rather than a one-time
 
 ## MVP Definition
 
-The minimum viable portfolio is reached after Phase 6. It is a publicly deployed, responsive, and accessible website that presents a clear professional introduction; navigation to Home, About, Projects, Technical Notes, Resume, and Contact; the Global RF Spectrum Dashboard and Compliance Plan Generator case studies; a concise resume; and working contact paths.
+The rebaselined public MVP is a deployed, responsive, and accessible portfolio with Home, About, Projects, and Contact in the approved navigation; the `Engineering Evidence Editorial` visual system; a truthful Global RF Spectrum Dashboard case study; and an accessible RF Dashboard Light public tool or clearly documented public preview. It also includes a truthful Compliance Plan Generator project entry marked as in active development, responsive and accessible portfolio navigation, and public-safe contact paths only when approved.
 
-The MVP must use the defined visual system, load reliably as a static-first site, and provide enough technical evidence for a hiring manager or engineering peer to evaluate the work without requiring a live product demonstration. Interactive tools, extensive filtering, and additional content are post-MVP enhancements.
+The MVP does not require the Compliance Plan Generator to be deployed or complete, and it does not require Technical Notes or Resume to be active navigation items. Technical Notes, Resume, additional case studies, and CPG public tooling remain later expansion work.
 
 ## Project Migration Strategy
 
@@ -119,9 +132,9 @@ For both projects, migration is complete when the project directory remains inde
 
 ## Deployment Milestone
 
-Vercel preview deployment begins in Phase 3, once the website foundation can be built and run locally. Preview deployments support implementation review before public release.
+Phase 4 may first release RF Dashboard Light and the portfolio connection to it. The Compliance Plan Generator does not need to be complete or deployed for that release.
 
-Production deployment and custom-domain configuration belong to Phase 6, after the core website and both project case studies are complete. The production release includes metadata and social previews plus responsive, accessibility, browser, performance, and link review. Subsequent deployments should remain incremental and reversible through GitHub history and Vercel previews.
+The portfolio and standalone Dashboard may initially use separate preview or production deployments. Final canonical URL, subdomain, `/tools/` path, and custom-domain consolidation are decided during the later Phase 4 deployment-architecture work. Every deployment must remain incremental, validated, recorded, and reversible through versioned artifacts and Git history.
 
 ## Long-Term Maintenance Approach
 
