@@ -1,3 +1,4 @@
+import { ProjectActions } from "@/components/projects/project-actions";
 import { ProjectVisual } from "@/components/projects/project-visual";
 import { TextLink } from "@/components/ui/text-link";
 import { featuredProjects } from "@/content/projects";
@@ -29,11 +30,7 @@ export function FeaturedWork() {
                 <p className="project-record__facts">
                   {project.projectType} · {project.statusLabel}
                 </p>
-                {project.detailRouteAvailable ? (
-                  <TextLink href={`/projects/${project.slug}`}>
-                    Open case study
-                  </TextLink>
-                ) : null}
+                <ProjectActions project={project} />
               </div>
             </article>
           ))}

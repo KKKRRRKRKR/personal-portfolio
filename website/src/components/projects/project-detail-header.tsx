@@ -1,9 +1,9 @@
 import { ProjectVisual } from "@/components/projects/project-visual";
 import { TextLink } from "@/components/ui/text-link";
-import type { ProjectRecord } from "@/content/projects";
+import type { ProjectWithCaseStudy } from "@/content/projects";
 
 type ProjectDetailHeaderProps = {
-  project: ProjectRecord;
+  project: ProjectWithCaseStudy;
 };
 
 export function ProjectDetailHeader({ project }: ProjectDetailHeaderProps) {

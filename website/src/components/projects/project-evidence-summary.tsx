@@ -1,8 +1,8 @@
-import type { ProjectRecord } from "@/content/projects";
+import type { ProjectWithCaseStudy } from "@/content/projects";
 
 type ProjectEvidenceSummaryProps = {
   mode: "decisions" | "facts";
-  project: ProjectRecord;
+  project: ProjectWithCaseStudy;
 };
 
 export function ProjectEvidenceSummary({
@@ -12,7 +12,7 @@ export function ProjectEvidenceSummary({
   if (mode === "facts") {
     return (
       <dl className="project-fact-snapshot">
-        {project.evidence.facts.map((fact) => (
+        {project.caseStudy.evidence.facts.map((fact) => (
           <div key={fact.label}>
             <dt>{fact.label}</dt>
             <dd>{fact.value}</dd>
@@ -24,7 +24,7 @@ export function ProjectEvidenceSummary({
 
   return (
     <div className="project-decisions">
-      {project.evidence.decisions.map((decision) => (
+      {project.caseStudy.evidence.decisions.map((decision) => (
         <article key={decision.title}>
           <h3>{decision.title}</h3>
           <p>{decision.description}</p>

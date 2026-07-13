@@ -633,6 +633,17 @@ select {
   margin-top: var(--space-6);
 }
 
+.project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-8);
+  margin-top: var(--space-6);
+}
+
+.project-actions .text-link {
+  margin-top: 0;
+}
+
 /* Project visuals are project-specific evidence, not decorative placeholders. */
 .project-visual {
   margin: var(--space-8) 0 0;
@@ -649,6 +660,27 @@ select {
   display: block;
   width: 100%;
   height: auto;
+}
+
+.project-visual__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.project-visual__fallback {
+  display: grid;
+  min-height: 12rem;
+  place-items: center;
+  padding: var(--space-8);
+}
+
+.project-visual__fallback p {
+  max-width: 28rem;
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 0.875rem;
+  text-align: center;
 }
 
 .project-visual figcaption {

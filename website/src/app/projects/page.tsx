@@ -1,7 +1,7 @@
 import { ProjectVisual } from "@/components/projects/project-visual";
+import { ProjectActions } from "@/components/projects/project-actions";
 import { PageIntro } from "@/components/page-intro";
-import { TextLink } from "@/components/ui/text-link";
-import { projects } from "@/content/projects";
+import { publicProjects } from "@/content/projects";
 
 export const metadata = { title: "Projects" };
 
@@ -21,11 +21,11 @@ export default function ProjectsPage() {
           <div className="projects-register__header">
             <p className="eyebrow">Project index</p>
             <p className="projects-register__count" id="project-register-title">
-              {projects.length} selected projects
+              {publicProjects.length} selected projects
             </p>
           </div>
           <div className="projects-register__list">
-            {projects.map((project) => (
+            {publicProjects.map((project) => (
               <article className="project-entry" key={project.slug}>
                 <div className="project-entry__content">
                   <h2>{project.title}</h2>
@@ -41,11 +41,10 @@ export default function ProjectsPage() {
                       <dd>{project.statusLabel}</dd>
                     </div>
                   </dl>
-                  {project.detailRouteAvailable ? (
-                    <TextLink href={`/projects/${project.slug}`}>
-                      Read project detail
-                    </TextLink>
-                  ) : null}
+                  <ProjectActions
+                    caseStudyLabel="Read project detail"
+                    project={project}
+                  />
                 </div>
               </article>
             ))}

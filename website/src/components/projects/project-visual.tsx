@@ -73,7 +73,49 @@ export function ProjectVisual({
   project,
   variant = "feature",
 }: ProjectVisualProps) {
-  const isSpectrum = project.evidence.kind === "spectrum";
+  if (project.visual.kind === "image") {
+    return (
+      <figure className={`project-visual project-visual--${variant}`}>
+        <div className="project-visual__canvas">
+          {/* Project image sources are content-managed and may be local or remote. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            alt={project.visual.alt}
+            className="project-visual__image"
+            src={project.visual.src}
+          />
+        </div>
+        {project.visual.caption ||
+        project.visual.disclosure ||
+        project.visual.source ? (
+          <figcaption>
+            {project.visual.caption ? (
+              <span>{project.visual.caption}</span>
+            ) : null}
+            {project.visual.disclosure}
+            {project.visual.source ? `Source: ${project.visual.source}` : null}
+          </figcaption>
+        ) : null}
+      </figure>
+    );
+  }
+
+  if (project.visual.kind === "none") {
+    return (
+      <figure
+        className={`project-visual project-visual--${variant} project-visual--text-first`}
+      >
+        <div className="project-visual__canvas project-visual__fallback">
+          <p>{project.visual.label ?? "Text-first project record"}</p>
+        </div>
+        {project.visual.description ? (
+          <figcaption>{project.visual.description}</figcaption>
+        ) : null}
+      </figure>
+    );
+  }
+
+  const isSpectrum = project.visual.illustration === "spectrum";
   const copy = (isSpectrum ? spectrumCopy : planningCopy)[variant];
 
   return (

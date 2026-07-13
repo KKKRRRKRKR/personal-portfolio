@@ -1,8 +1,8 @@
 import { TextLink } from "@/components/ui/text-link";
-import type { ProjectRecord } from "@/content/projects";
+import type { ProjectWithCaseStudy } from "@/content/projects";
 
 type ProjectRelatedNavigationProps = {
-  relatedProject: ProjectRecord;
+  relatedProject: ProjectWithCaseStudy;
 };
 
 export function ProjectRelatedNavigation({

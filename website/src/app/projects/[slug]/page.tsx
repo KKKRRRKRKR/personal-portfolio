@@ -7,7 +7,11 @@ import { ProjectDetailSection } from "@/components/projects/project-detail-secti
 import { ProjectRelatedNavigation } from "@/components/projects/project-related-navigation";
 import { ProjectSystemStructure } from "@/components/projects/project-system-structure";
 import { ProjectVisual } from "@/components/projects/project-visual";
-import { getProjectBySlug, projects } from "@/content/projects";
+import {
+  getPublicCaseStudyBySlug,
+  getRelatedPublicCaseStudy,
+  publicCaseStudyProjects,
+} from "@/content/projects";
 
 type ProjectDetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -16,24 +20,26 @@ type ProjectDetailPageProps = {
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return projects
-    .filter((project) => project.detailRouteAvailable)
-    .map((project) => ({ slug: project.slug }));
+  return publicCaseStudyProjects.map((project) => ({ slug: project.slug }));
 }
 
 export async function generateMetadata({
   params,
 }: ProjectDetailPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = getPublicCaseStudyBySlug(slug);
 
-  if (!project || !project.detailRouteAvailable) {
+  if (!project) {
     return {};
   }
 
   return {
     title: project.title,
     description: project.summary,
+    robots: {
+      index: project.indexability === "index",
+      follow: project.indexability === "index",
+    },
   };
 }
 
@@ -41,23 +47,21 @@ export default async function ProjectDetailPage({
   params,
 }: ProjectDetailPageProps) {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = getPublicCaseStudyBySlug(slug);
 
-  if (!project || !project.detailRouteAvailable) {
+  if (!project) {
     notFound();
   }
 
-  const relatedProject = projects.find(
-    (candidate) =>
-      candidate.slug !== project.slug && candidate.detailRouteAvailable,
-  );
+  const relatedProject = getRelatedPublicCaseStudy(project.slug);
+  const caseStudy = project.caseStudy;
 
   return (
     <>
       <ProjectDetailHeader project={project} />
       <div className="site-frame project-detail-content">
         <ProjectDetailSection id="project-overview" title="Project thesis">
-          <p>{project.detailIntroduction}</p>
+          <p>{caseStudy.detailIntroduction}</p>
         </ProjectDetailSection>
         <ProjectDetailSection
           id="project-scale"
@@ -70,13 +74,13 @@ export default async function ProjectDetailPage({
           id="project-challenge"
           title="Context and constraints"
         >
-          <p>{project.challenge}</p>
+          <p>{caseStudy.challenge}</p>
         </ProjectDetailSection>
         <ProjectDetailSection
           id="project-approach"
           title="Selected engineering decisions"
         >
-          <p>{project.approach}</p>
+          <p>{caseStudy.approach}</p>
           <ProjectEvidenceSummary mode="decisions" project={project} />
         </ProjectDetailSection>
         <ProjectDetailSection
@@ -84,7 +88,7 @@ export default async function ProjectDetailPage({
           title="System model"
           variant="wide"
         >
-          <ProjectSystemStructure sections={project.systemSections} />
+          <ProjectSystemStructure sections={caseStudy.systemSections} />
         </ProjectDetailSection>
         <ProjectDetailSection
           id="project-interface-evidence"
@@ -98,9 +102,9 @@ export default async function ProjectDetailPage({
           title="Outcome and current boundaries"
           variant="outcome"
         >
-          <p>{project.currentState}</p>
+          <p>{caseStudy.currentState}</p>
           <ul className="project-next-steps">
-            {project.nextSteps.map((step) => (
+            {caseStudy.nextSteps.map((step) => (
               <li key={step}>{step}</li>
             ))}
           </ul>

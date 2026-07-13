@@ -1,8 +1,8 @@
 import { ProjectVisual } from "@/components/projects/project-visual";
 import { TextLink } from "@/components/ui/text-link";
-import { getProjectBySlug } from "@/content/projects";
+import { featuredProjects } from "@/content/projects";
 
-const spectrumProject = getProjectBySlug("global-rf-spectrum-dashboard");
+const primaryFeaturedProject = featuredProjects[0];
 
 export function HomeHero() {
   return (
@@ -23,8 +23,8 @@ export function HomeHero() {
             <TextLink href="/about">Read the working approach</TextLink>
           </div>
         </div>
-        {spectrumProject ? (
-          <ProjectVisual project={spectrumProject} variant="overview" />
+        {primaryFeaturedProject ? (
+          <ProjectVisual project={primaryFeaturedProject} variant="overview" />
         ) : null}
       </div>
     </section>
