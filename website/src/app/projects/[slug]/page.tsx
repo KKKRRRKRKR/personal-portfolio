@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { ProjectDetailHeader } from "@/components/projects/project-detail-header";
+import { ProjectEvidenceFigures } from "@/components/projects/project-evidence-figures";
 import { ProjectEvidenceSummary } from "@/components/projects/project-evidence-summary";
 import { ProjectDetailSection } from "@/components/projects/project-detail-section";
 import { ProjectRelatedNavigation } from "@/components/projects/project-related-navigation";
@@ -95,7 +96,11 @@ export default async function ProjectDetailPage({
           title="Interface evidence"
           variant="wide"
         >
-          <ProjectVisual project={project} variant="interface" />
+          {caseStudy.interfaceEvidence?.length ? (
+            <ProjectEvidenceFigures figures={caseStudy.interfaceEvidence} />
+          ) : (
+            <ProjectVisual project={project} variant="interface" />
+          )}
         </ProjectDetailSection>
         <ProjectDetailSection
           id="project-current-state"

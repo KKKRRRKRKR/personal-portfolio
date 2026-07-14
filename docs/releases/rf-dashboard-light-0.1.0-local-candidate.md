@@ -9,7 +9,7 @@
 - Deployment: not deployed
 - Live URL: none
 - External local working directory: `C:\Users\gul\Documents\Global_Wireless_Spectrum\Demo10_Public_Light`
-- Phase boundary: Phase 4-4A complete locally; Phase 4-4B has not started
+- Phase boundary: Phase 4-4A and portfolio-evidence work completed locally; Phase 4-5 has not started
 
 This candidate is a standalone, self-contained HTML engineering reference. It is not registered as a portfolio live tool and makes no claim of official, regulatory, certification, licensing, or operating authority.
 
@@ -60,6 +60,16 @@ Employer branding and endorsement implications, broken sibling navigation, CSV i
 
 Known non-blocking interface issues remain recorded in the external release manifest, including dense spectrum labels, compact controls, small text/touch targets, nonsemantic close controls, tooltip-only information, and the pending 1024 px responsive acceptance target. These are not expanded into redesign work in Phase 4-4A.
 
+## Portfolio evidence
+
+Authentic portfolio evidence was captured from this approved sanitized candidate and recorded in [RF Dashboard Light Portfolio Evidence](../evidence/rf-dashboard-light-portfolio-evidence.md). The portfolio assets are:
+
+- `rf-dashboard-light-overview.png`
+- `rf-dashboard-light-country-state.png`
+- `rf-dashboard-light-spectrum-detail.png`
+
+The screenshots do not modify the candidate or imply public availability. Deployment remains `not-deployed`, and no live URL exists.
+
 ## Next gate
 
-Phase 4-4B may integrate the candidate with the portfolio only after a separate approval. It must decide public hosting and URL registration, revalidate the deployed artifact, and keep case-study content separate from the standalone tool. This document does not authorize deployment, pushing, or adding a live-tool URL.
+Future deployment work must decide public hosting and URL registration, revalidate the deployed artifact, and keep case-study content separate from the standalone tool. This document does not authorize deployment, pushing, or adding a live-tool URL.

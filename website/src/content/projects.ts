@@ -15,6 +15,15 @@ export interface ProjectEvidence {
   facts: readonly { label: string; value: string }[];
 }
 
+export interface ProjectEvidenceFigure {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  caption?: string;
+  disclosure?: string;
+}
+
 type DestinationPresentation = {
   label?: string;
   accessibilityDescription?: string;
@@ -69,6 +78,8 @@ export type ProjectVisual =
       kind: "image";
       src: string;
       alt: string;
+      width: number;
+      height: number;
       caption?: string;
       disclosure?: string;
       source?: string;
@@ -85,6 +96,7 @@ interface ProjectCaseStudyContent {
   challenge: string;
   approach: string;
   evidence: ProjectEvidence;
+  interfaceEvidence?: readonly ProjectEvidenceFigure[];
   systemSections: readonly ProjectSystemSection[];
   currentState: string;
   nextSteps: readonly string[];
@@ -141,87 +153,116 @@ const projectRecords = [
     indexability: "index",
     order: 1,
     visual: {
-      kind: "system-illustration",
-      illustration: "spectrum",
+      kind: "image",
+      src: "/projects/rf-spectrum-dashboard/rf-dashboard-light-overview.png",
+      alt: "Map-based RF spectrum dashboard with RF band, region, and country filters, a color-coded world map, country spectrum details, and public-candidate disclosure.",
+      width: 1440,
+      height: 900,
+      caption:
+        "Local public-safe release candidate. Public preview not yet available.",
+      disclosure:
+        "Reference data may be incomplete or outdated; verify current official requirements.",
     },
     caseStudy: {
       availability: "in-preparation",
       eyebrow: "Project record / RF systems",
       detailIntroduction:
-        "The dashboard turns region-specific spectrum allocation and power information into one comparison surface, so an engineer can move from a global view to a country-level review without losing the context behind a decision.",
+        "RF Dashboard Light 0.1.0 is a sanitized local release candidate that brings regional spectrum ranges, country-level review, filtering, and power context into one coordinated engineering reference. The public preview is not yet available.",
       challenge:
-        "Regional spectrum information can be difficult to review consistently across markets. Frequency ranges, power context, and regional differences need a structured visual interface so that comparison and navigation remain clear without treating the information as a single flat list.",
+        "Regional spectrum information is difficult to compare consistently across markets, and a public portfolio record cannot expose internal workflow material or imply official regulatory completeness. The interface must keep geography, frequency ranges, power context, data limits, and release status understandable while remaining explicit that official requirements still need independent verification.",
       approach:
-        "The approach combines map-first navigation with structured spectrum representation, region and country filtering, and frequency and power context. It keeps data separate from interface behavior so that public example content, import and export paths, and later implementation detail can evolve independently.",
+        "The candidate remains a self-contained static HTML tool with no runtime external dependencies. Map selection, region and country filters, RF-band filtering, spectrum information, and the detail matrix are driven by one reviewed public dataset, while the editorial case study stays separate from the standalone tool and its future deployment path.",
       evidence: {
         caption:
-          "Sanitized spectrum-review model showing how regional ranges and review context can remain comparable in one working surface.",
+          "Verified local-candidate facts recorded during Public Light preparation.",
         facts: [
           {
-            label: "Review unit",
-            value: "Region, country, and frequency band",
+            label: "Public subset",
+            value: "175 of 245 source records retained",
           },
           {
-            label: "System scope",
-            value: "5 connected interface and data areas",
+            label: "Withheld from candidate",
+            value: "70 source records",
           },
           {
-            label: "Decision boundary",
-            value: "Public-safe example data only",
+            label: "Public export",
+            value: "7 reviewed fields",
           },
         ],
         decisions: [
           {
-            title: "Make geography the entry point",
+            title: "Keep the review surfaces coordinated",
             description:
-              "Start from a market or region, then preserve that context as the review moves into individual frequency ranges.",
+              "Preserve geographic context as a review moves from the global map through filters into country spectrum information and the detail matrix.",
           },
           {
-            title: "Keep comparison visible",
+            title: "Build from one reviewed public subset",
             description:
-              "Represent ranges and power context together instead of distributing the review across disconnected tables.",
+              "Regenerate the retained interface data from a controlled sanitized structure instead of exposing duplicated source representations or internal fields.",
           },
           {
-            title: "Separate data from interaction",
+            title: "Separate evidence from release",
             description:
-              "Keep public examples, import paths, and interface behavior independent so the portfolio view can remain safe and maintainable.",
+              "Use authentic local screenshots in the editorial case study without treating portfolio evidence as a deployed tool or a live-preview destination.",
           },
         ],
       },
+      interfaceEvidence: [
+        {
+          src: "/projects/rf-spectrum-dashboard/rf-dashboard-light-country-state.png",
+          alt: "RF Dashboard Light Home view filtered to South Korea, with RF band, region, and country controls above the world map and South Korea spectrum details.",
+          width: 1440,
+          height: 900,
+          caption:
+            "South Korea selected in the local public-safe candidate, showing a real multi-band country review state.",
+          disclosure:
+            "This state is evidence of the current interface, not a claim of global regulatory completeness.",
+        },
+        {
+          src: "/projects/rf-spectrum-dashboard/rf-dashboard-light-spectrum-detail.png",
+          alt: "RF Dashboard Light Spectrum Detail view filtered to South Korea, showing RF filters, Band Scope controls, matrix headings, and the current oversized flag row-layout limitation.",
+          width: 1440,
+          height: 900,
+          caption:
+            "Spectrum Detail in the current local candidate, filtered to one ordinary country group.",
+          disclosure:
+            "The oversized flag and incomplete row layout are retained as an unresolved candidate UI issue; the evidence has not been visually corrected.",
+        },
+      ],
       systemSections: [
         {
-          title: "Data model",
+          title: "Self-contained delivery",
           description:
-            "A structured representation for regional spectrum information and its review context.",
+            "One static HTML candidate carries its reviewed data and interface assets without runtime external dependencies.",
         },
         {
-          title: "Geographic navigation",
+          title: "Public data boundary",
           description:
-            "Map-first entry points for moving between regional and country-level views.",
+            "A sanitized subset retains the fields required for public reference behavior while withholding unreviewed records and internal material.",
         },
         {
-          title: "Spectrum visualization",
+          title: "Geographic review",
           description:
-            "A visual layer for comparing frequency ranges and associated power context.",
+            "Map-first navigation and region or country filters keep location visible throughout the review.",
         },
         {
-          title: "Filtering and review",
+          title: "Spectrum coordination",
           description:
-            "Controls that narrow the view while preserving a clear comparison path.",
+            "Frequency filters, country information, and the Spectrum Detail matrix share the same reviewed public records.",
         },
         {
-          title: "Import and export",
+          title: "Disclosure and export",
           description:
-            "Prepared boundaries for bringing in and sharing structured example data.",
+            "Visible limitations remain part of both tool views, and CSV output is restricted to seven reviewed public fields.",
         },
       ],
       currentState:
-        "A working interactive dashboard exists. A public-safe Light version is being prepared; public availability and data scope are not yet finalized.",
+        "RF Dashboard Light 0.1.0 exists as a public-safe local release candidate. It retains 175 reviewed records from 245 source records, remains desktop-first, has no runtime external dependencies, and is not deployed. The screenshots document the current candidate, including an unresolved Spectrum Detail row-layout limitation.",
       nextSteps: [
-        "Prepare a standalone public-safe working copy and sanitized dataset.",
-        "Validate the Light interface and disclosure behavior independently.",
-        "Connect a working preview through the portfolio live-tool destination only after validation.",
-        "Validate online deployment behavior.",
+        "Resolve the recorded Spectrum Detail layout and known desktop UI issues without changing the reviewed public-data boundary.",
+        "Complete the 1024 px candidate acceptance work and revalidate map, filters, disclosure, matrix, and export behavior.",
+        "Establish and validate a working standalone preview in a later deployment phase.",
+        "Add a live-tool destination only after a real preview URL exists and passes release validation.",
       ],
     },
     destinations: {
@@ -242,7 +283,17 @@ const projectRecords = [
     disclosureNotes: [
       {
         description:
-          "A public-safe Light version is being prepared; public availability and data scope are not yet finalized.",
+          "This personal engineering project is a public-safe local release candidate for reference and demonstration. Data may be incomplete or outdated; verify official requirements. No public preview is currently available.",
+      },
+    ],
+    validationNotes: [
+      {
+        description:
+          "Localhost validation covered identity, disclosure, map and filter behavior, Spectrum Detail navigation, row expansion, and the seven-field CSV export.",
+      },
+      {
+        description:
+          "The current sanitized candidate retains 175 public records, with 70 source records withheld and no runtime external dependencies.",
       },
     ],
   },

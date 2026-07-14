@@ -82,7 +82,9 @@ export function ProjectVisual({
           <img
             alt={project.visual.alt}
             className="project-visual__image"
+            height={project.visual.height}
             src={project.visual.src}
+            width={project.visual.width}
           />
         </div>
         {project.visual.caption ||

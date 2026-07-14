@@ -66,12 +66,13 @@ This phase maps partially to the old Phase 5 case-study work, Phase 6 deployment
 - **Implementation boundary:** No portfolio application change, deployment, push, live URL, or public-tool registration.
 - **Local status:** Completed and validated locally. The candidate has 175 public records, zero external dependencies, a repeatable SHA-256, completed localhost browser validation, and no live URL. See [RF Dashboard Light 0.1.0 Local Candidate](../releases/rf-dashboard-light-0.1.0-local-candidate.md).
 
-#### Phase 4-4B – Portfolio Connection and Release Gate
+#### Phase 4-4B – Portfolio Evidence Integration
 
-- **Objective:** Connect the RF project record and case study to an approved public Dashboard destination.
-- **Expected outputs:** Public-safe visual evidence, accurate status/version metadata, a distinct live-tool action, disclosure context, fallback behavior, and deployed-artifact validation.
-- **Implementation boundary:** Not started. Keep editorial case-study content separate from the standalone tool, avoid fictional evidence, and do not register a live-tool URL before hosting and release approval.
-- **Review gate:** The case study, tool link, version, disclosures, deployment state, and released hashes agree and expose no sensitive information.
+- **Objective:** Integrate authentic public-safe evidence from the approved local candidate without treating evidence capture as deployment.
+- **Expected outputs:** RF Home/Projects primary visual, two supporting case-study figures, calibrated candidate copy, evidence documentation, and explicit disclosure of unresolved candidate limitations.
+- **Implementation boundary:** Completed locally with no live-tool URL, preview URL, deployment, or standalone-tool behavior change. Editorial case-study content remains separate from the candidate.
+- **Local status:** Authentic evidence was captured from the approved candidate; the RF visual and case study now use the reviewed assets. Phase 4-5 has not started.
+- **Review gate:** Home, Projects, and the RF detail route render the evidence truthfully; the CPG record is unchanged; no sensitive information or fake public action is exposed.
 
 ### Phase 4-5 – CPG Status Calibration
 
