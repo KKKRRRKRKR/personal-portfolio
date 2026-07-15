@@ -4,6 +4,8 @@
 
 Phase 4 prepares Global RF Band Dashboard Light as the first possible publicly deployed engineering tool and establishes a reusable relationship between portfolio project records, case studies, and live tools.
 
+**Phase status:** Completed on 2026-07-15. The Portfolio and RF Dashboard Light 0.1.1 are deployed from `main`; all Phase 4 production gates passed and the temporary branch-preview deployment path was retired after promotion.
+
 This phase maps partially to the old Phase 5 case-study work, Phase 6 deployment work, and Phase 7 interactive-tool work. The completed website foundation, Core Pages scope, shared navigation, footer, and `Engineering Evidence Editorial` visual system are not repeated.
 
 ## 2. Confirmed scope
@@ -55,7 +57,7 @@ This phase maps partially to the old Phase 5 case-study work, Phase 6 deployment
 - **Expected outputs:** Typed content interface, migration of the two current records, conditional actions, visibility/indexing controls, and model tests or type validation.
 - **Implementation boundary:** Preserve the approved Projects-page visual direction; introduce only evidence-backed optional fields and reusable rendering behavior.
 - **Review gate:** Both current projects render truthfully, and a new project can be registered without changing Projects-page layout code.
-- **Local implementation status:** Completed and validated locally. Case-study, live-tool, repository, and documentation availability are independently typed; both current records are migrated, and no live-tool URL is registered. Phase 4-4 has not started.
+- **Final status:** Completed. Case-study, live-tool, repository, and documentation availability are independently typed; both records are migrated, and the RF destination is environment-aware with a verified production URL.
 
 ### Phase 4-4 – RF Dashboard Portfolio Integration
 
@@ -64,14 +66,14 @@ This phase maps partially to the old Phase 5 case-study work, Phase 6 deployment
 - **Objective:** Produce a deterministic, sanitized standalone candidate directly from the locked canonical source.
 - **Expected outputs:** Self-contained `0.1.0` candidate, transformation script, release manifest, sanitization log, and local browser/export validation.
 - **Implementation boundary:** No portfolio application change, deployment, push, live URL, or public-tool registration.
-- **Local status:** Completed and validated locally. The candidate has 175 public records, zero external dependencies, a repeatable SHA-256, completed localhost browser validation, and no live URL. See [RF Dashboard Light 0.1.0 Local Candidate](../releases/rf-dashboard-light-0.1.0-local-candidate.md).
+- **Final status:** Completed. The immutable 0.1.0 local candidate established the 175-record public boundary and deterministic baseline; the subsequent 0.1.1 release transform preserved that dataset while resolving production indexing and keyboard-focus blockers. See [RF Dashboard Light 0.1.0 Local Candidate](../releases/rf-dashboard-light-0.1.0-local-candidate.md).
 
 #### Phase 4-4B – Portfolio Evidence Integration
 
 - **Objective:** Integrate authentic public-safe evidence from the approved local candidate without treating evidence capture as deployment.
 - **Expected outputs:** RF Home/Projects primary visual, two supporting case-study figures, calibrated candidate copy, evidence documentation, and explicit disclosure of unresolved candidate limitations.
 - **Implementation boundary:** Completed locally with no live-tool URL, preview URL, deployment, or standalone-tool behavior change. Editorial case-study content remains separate from the candidate.
-- **Local status:** Authentic evidence was captured from the approved candidate; the RF visual and case study now use the reviewed assets. Phase 4-5 has not started.
+- **Final status:** Completed. Authentic evidence from the approved candidate is used on the public Portfolio with its capture provenance and visible limitations preserved.
 - **Review gate:** Home, Projects, and the RF detail route render the evidence truthfully; the CPG record is unchanged; no sensitive information or fake public action is exposed.
 
 ### Phase 4-5 – CPG Status Calibration
@@ -79,7 +81,7 @@ This phase maps partially to the old Phase 5 case-study work, Phase 6 deployment
 - **Objective:** Ensure the Compliance Plan Generator is consistently presented as active development rather than a finished tool or launch deliverable.
 - **Expected outputs:** Calibrated Home, Projects, detail-page, metadata, disclosure, current-state, and next-step language with the temporary public-safe system illustration retained.
 - **Implementation boundary:** Completed locally with no CPG deployment, public demo, live URL, completion claim, fictional interface, or new implementation work. CPG remains an in-development project.
-- **Local status:** Public status and positioning are aligned across portfolio surfaces; proprietary rules and internal data remain excluded, and expert review is explicit. Phase 4-6 has not started.
+- **Final status:** Completed. Public status and positioning are aligned across production surfaces; proprietary rules and internal data remain excluded, expert review is explicit, and no CPG external destination exists.
 - **Review gate:** Home, Projects, CPG detail, metadata, disclosures, and actions communicate the same development state and expose no external CPG destination.
 
 ### Phase 4-6 – Deployment Architecture
@@ -88,6 +90,7 @@ This phase maps partially to the old Phase 5 case-study work, Phase 6 deployment
 - **Expected outputs:** Hosting decision, URL and routing plan, static-asset policy, security headers, cache/version strategy, analytics/privacy decision, and release checklist.
 - **Implementation boundary:** Architecture and preview configuration only; production release waits for Phase 4-7 approval.
 - **Review gate:** Preview hosting proves the chosen architecture supports direct entry, downloads, imports if retained, accessibility checks, and rollback.
+- **Final status:** Completed. GitHub Pages, the same-site `/tools/` fallback, static packaging, environment-aware indexing, artifact identity, and rollback were validated. The temporary Phase-branch deployment permission was retired after production promotion.
 
 ### Phase 4-7 – Public Deployment and Release Validation
 
@@ -95,6 +98,7 @@ This phase maps partially to the old Phase 5 case-study work, Phase 6 deployment
 - **Expected outputs:** Production deployment, recorded version/hash, smoke-test evidence, responsive/accessibility/browser/performance/link results, and rollback reference.
 - **Implementation boundary:** Release only the approved scope; any failed critical gate returns to the owning earlier subphase.
 - **Review gate:** No critical public-safety or functional issues remain, disclosures are visible, and the owner approves the live URLs.
+- **Final status:** Completed. Pull request `#1` merged to `main` as `66792c2ba912e646949fdf06b7568820ca3d7d3e`; workflow `29432967004` produced successful Pages deployment `5460619439`. Public browser, network, responsive, keyboard, metadata, and CSV checks passed.
 
 ### Phase 4-8 – Documentation and Commit Closure
 
@@ -102,6 +106,7 @@ This phase maps partially to the old Phase 5 case-study work, Phase 6 deployment
 - **Expected outputs:** Updated roadmap, deployment/runbook notes, validation record, release/version record, intentional commit history, and clean Git status.
 - **Implementation boundary:** Documentation and closure fixes only; new features move to later work.
 - **Review gate:** Documentation matches the deployed state, checks pass, and the final Git working tree is clean.
+- **Final status:** Completed. Architecture, runbooks, release identity, validation, historical evidence, roadmap state, accepted limitations, deferred work, and rollback are recorded in the repository.
 
 ## 5. Reusable project and tool interface – observed requirements
 

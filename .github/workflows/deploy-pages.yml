@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - phase-4-rf-dashboard-public-launch
   pull_request:
     branches:
       - main

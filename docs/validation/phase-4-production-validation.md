@@ -2,12 +2,12 @@
 
 ## Status
 
-Pre-promotion validation is complete. Production deployment identity and final public smoke fields remain pending until the `main` Pages workflow succeeds.
+Complete. The release was promoted from pull request `#1`, deployed from `main`, and validated on the public GitHub Pages URLs.
 
 ## Test identities
 
 - Phase branch preview commit: `abe9bcdc636676f5036304eab561ef5ff9b8f888`
-- Draft pull request: `#1`
+- Release pull request: `#1` (merged)
 - Successful preview deployment ID: `5460425901`
 - Preview URL: `https://kkkrrrkrkr.github.io/personal-portfolio/`
 - Dashboard preview URL: `https://kkkrrrkrkr.github.io/personal-portfolio/tools/rf-dashboard-light/`
@@ -86,13 +86,16 @@ The standalone Dashboard transfers 2,345,363 bytes as one cacheable HTML respons
 - Third-party/external runtime requests: `0`
 - CSV export: passed
 
-## Production fields to complete
+## Production results
 
-- Final `main` commit: pending
-- Production workflow run: pending
-- Production deployment ID and timestamp: pending
-- Production Portfolio `index, follow`: pending public confirmation
-- Production sitemap/robots: pending public confirmation
-- Production RF action label/state: pending public confirmation
-- Final production browser/network/CSV smoke: pending
-- Rollback deployment control/history confirmation: pending
+- Final `main` commit: `66792c2ba912e646949fdf06b7568820ca3d7d3e`
+- Production workflow run: `29432967004` (`success`)
+- Production deployment: `5460619439`, created `2026-07-15T16:35:09Z`, successful `2026-07-15T16:35:24Z`
+- Portfolio metadata: `index, follow` confirmed publicly
+- Production `robots.txt`: allows crawling and advertises the production sitemap; sitemap includes the RF project route
+- RF action: production label and deployed HTTPS destination confirmed; preview label absent
+- Dashboard: HTTP 200, `noindex, follow`, visible version `0.1.1`, expected ETag and modified time
+- Final production browser/network/CSV smoke completed `2026-07-15T16:37:06Z`
+- Browser results: console errors `0`, runtime exceptions `0`, failed requests `0`, external runtime requests `0`
+- CSV export: exact seven-field whitelist passed
+- Rollback: GitHub Pages deployment history and reviewed Git-based rebuild/redeploy path confirmed

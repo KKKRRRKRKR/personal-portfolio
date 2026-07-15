@@ -7,9 +7,12 @@
 - Release date: `2026-07-15`
 - Production URL: `https://kkkrrrkrkr.github.io/personal-portfolio/tools/rf-dashboard-light/`
 - Source branch: `main`
-- Production commit: pending promotion
-- GitHub Pages deployment ID: pending promotion
-- Production deployment timestamp: pending promotion
+- Production commit: `66792c2ba912e646949fdf06b7568820ca3d7d3e`
+- GitHub Actions workflow run: `29432967004`
+- GitHub Pages deployment ID: `5460619439`
+- Deployment created: `2026-07-15T16:35:09Z`
+- Deployment succeeded: `2026-07-15T16:35:24Z`
+- Public browser smoke completed: `2026-07-15T16:37:06Z`
 
 ## Provenance and hashes
 
@@ -40,7 +43,7 @@ Import, Admin, Portal, employer branding, internal data, runtime credentials, an
 - Inline CSS and JavaScript remain required; no CSP is claimed
 - GitHub Pages does not provide custom per-path response security headers for this repository
 
-## Pre-promotion validation
+## Production validation
 
 - Static sensitive-string, runtime-dependency, schema, version, robots, and artifact-hash validation: passed
 - Real preview HTTPS load and every primary interaction: passed
@@ -48,6 +51,7 @@ Import, Admin, Portal, employer branding, internal data, runtime credentials, an
 - Native focus path, visible focus, and keyboard country-row expansion with focus retention: passed
 - CSV export: passed
 - Console errors, runtime exceptions, failed requests, external requests: all `0`
+- Public response: HTTP 200 with artifact ETag `"6a57b6c5-23c993"` and `Last-Modified: Wed, 15 Jul 2026 16:35:17 GMT`
 
 ## Accepted limitations
 

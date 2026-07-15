@@ -1,29 +1,28 @@
 # Portfolio Roadmap
 
-## Phase 1: Repository setup — Completed
+## Current state
 
-Establish the repository structure, public-safe documentation, ignore rules, and GitHub baseline. No frontend framework or dependencies are introduced in this phase.
+The public MVP and Phase 4 RF Dashboard launch are complete. The production Portfolio and RF Dashboard Light 0.1.1 are deployed from `main` through GitHub Pages.
 
-## Phase 2: Technology selection and website foundation — Future
+- Portfolio: `https://kkkrrrkrkr.github.io/personal-portfolio/`
+- RF Dashboard Light: `https://kkkrrrkrkr.github.io/personal-portfolio/tools/rf-dashboard-light/`
+- Compliance Plan Generator: public case study only; still in active development
+- Technical Notes and Resume: reserved, noindex routes outside primary navigation
 
-Select an appropriate website stack and establish the initial application structure, development workflow, and quality checks.
+## Completed foundations
 
-## Phase 3: Design system — Future
+1. Repository structure and public-safety baseline
+2. Next.js static website foundation and quality checks
+3. Engineering Evidence Editorial design system and responsive core pages
+4. Reusable project/tool content contract and authentic project evidence
+5. RF Dashboard Light sanitization, release packaging, deployment, and validation
+6. GitHub Pages production workflow, release records, and rollback runbooks
 
-Define the visual language, typography, layout patterns, accessible components, and reusable content conventions for the portfolio.
+## Next work
 
-## Phase 4: Project integration — Future
+- Maintain dependencies, links, accessibility, and public content through small reviewed changes.
+- Improve documented RF Dashboard limitations only when changes materially improve correct use.
+- Keep the Compliance Plan Generator private-tool boundary until its separate public-demo gate is satisfied.
+- Activate Technical Notes, Resume, custom-domain work, or analytics only through separately scoped future phases.
 
-Develop public-safe case studies and integrate selected engineering projects, images, and demonstrations into the website.
-
-## Phase 5: Deployment and domain configuration — Future
-
-Configure hosting, a custom domain if desired, deployment automation, and production monitoring appropriate for a public portfolio.
-
-## Phase 6: Long-term maintenance — Future
-
-Keep project material current, improve accessibility and performance, maintain dependencies after a stack is selected, and add future work responsibly.
-
-## Current focus
-
-Phase 1 is complete. The next decision is selecting the technology and foundation for Phase 2.
+The detailed implementation history remains in [Development Roadmap](./roadmap/development-roadmap.md) and [Phase 4 - RF Dashboard Public Launch Foundation](./roadmap/phase-4-rf-dashboard-public-launch.md).

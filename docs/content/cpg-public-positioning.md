@@ -32,3 +32,7 @@ The case-study link may remain. Do not expose a Live Tool, repository, documenta
 ## Future public-demo gate
 
 A public demonstration may be considered only after the implementation is sufficiently stable, public-safe data is reviewed, deterministic rule behavior is verified, privacy and proprietary-content review is complete, limitations are explicit, and a real working preview exists. Adding a Live Tool URL requires separate approval after those conditions are validated.
+
+## Phase 4 closure state
+
+The production Portfolio preserves this boundary: the Compliance Plan Generator remains `In active development`, its case study is available as an honest project record, and no live-tool, preview, repository, documentation, or download action is exposed. Phase 4 did not deploy or complete the CPG.

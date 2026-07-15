@@ -10,7 +10,7 @@ Lifecycle, case-study readiness, live-tool readiness, visibility, and indexabili
 
 Every `ProjectRecord` has a stable slug, title, summary, lifecycle status, public status label, project type, featured flag, visibility, indexability, order, visual contract, case-study state, and independent destination states. A role is optional. Release metadata, validation notes, and disclosure notes are optional structured fields.
 
-Lifecycle status is normalized to `active-development`, `case-study-in-preparation`, `available`, or `archived`. `statusLabel` is the concise public wording and must agree with the normalized status. The two current records use `active-development`; their public labels are `Public Light preparation` and `In active development`.
+Lifecycle status is normalized to `active-development`, `case-study-in-preparation`, `available`, or `archived`. `statusLabel` is the concise public wording and must agree with the normalized status. The two current records use `active-development`; their public labels are `Public Light available` and `In active development`.
 
 Visibility and indexability are separate decisions:
 
@@ -35,7 +35,7 @@ The shared `ProjectActions` renderer shows only real destinations. Planned and u
 
 A live-tool URL is prohibited until a real working preview exists. The type therefore has no URL field for `planned` or `unavailable`, and content review must not promote a destination to `preview` merely to expose a link.
 
-The RF Dashboard live-tool destination is currently `planned`, so no live URL or action is present. Its release metadata records `RF Dashboard Light 0.1.0` as `not-deployed` without inventing a release date, dataset version, dataset date, or deployment URL. The Compliance Plan Generator has no public destinations or release record.
+The RF Dashboard live-tool destination is environment-aware. Preview-context validation renders a `preview` destination and preview wording; production renders an `available` destination at `https://kkkrrrkrkr.github.io/personal-portfolio/tools/rf-dashboard-light/`. Its release metadata records `RF Dashboard Light 0.1.1`, release date `2026-07-15`, the reviewed dataset state, and the matching preview or production deployment state. The Compliance Plan Generator has no public destinations or release record.
 
 ## Visual contract
 

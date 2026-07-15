@@ -14,7 +14,9 @@ Each phase should have a clear completion boundary, maintain a deployable websit
 
 The repository has completed the website foundation, the shared `Engineering Evidence Editorial` visual system, and the core pages in the approved current navigation scope: Home, About, Projects, and Contact. The RF Spectrum Dashboard and Compliance Plan Generator also have project-detail structures. Technical Notes and Resume remain reserved routes and future work rather than active navigation destinations.
 
-Current implementation work is defined by [Phase 4 – RF Dashboard Public Launch Foundation](./phase-4-rf-dashboard-public-launch.md). This rebaselined phase combines public-safe case-study preparation, a reusable project/tool architecture, and preparation for the first public RF Dashboard Light deployment. It draws from the older case-study, production-deployment, and interactive-tool phases below without repeating completed Core Pages work.
+The rebaselined [Phase 4 - RF Dashboard Public Launch Foundation](./phase-4-rf-dashboard-public-launch.md) is complete. It combined public-safe case-study preparation, a reusable project/tool architecture, RF Dashboard Light 0.1.1 production deployment, and release validation without repeating completed Core Pages work.
+
+Production is available at `https://kkkrrrkrkr.github.io/personal-portfolio/`, with the standalone Dashboard at `https://kkkrrrkrkr.github.io/personal-portfolio/tools/rf-dashboard-light/`.
 
 The Compliance Plan Generator remains in active development. It is not a Phase 4 public-deployment deliverable and must not be presented as complete.
 
@@ -42,7 +44,7 @@ Define the long-term architecture, information architecture, visual design syste
 
 ### Phase 3 - Website Foundation Implementation
 
-**Status:** Completed locally; preview and production deployment remain future Phase 4 work.
+**Status:** Completed locally in Phase 3 and subsequently deployed through the completed rebaselined Phase 4 release.
 
 Create the static-first website foundation inside `website/`.
 
@@ -70,6 +72,8 @@ Implement the approved visual system and the core portfolio experience.
 
 ### Phase 5 - Project Case Studies
 
+**Status:** Partially complete. Both project records are public; RF uses authentic reviewed evidence, while both narratives remain explicitly marked as case studies in preparation.
+
 Integrate engineering projects through a consistent public case-study model.
 
 - Define project metadata and MDX content model.
@@ -81,9 +85,11 @@ Integrate engineering projects through a consistent public case-study model.
 
 ### Phase 6 - Production Deployment
 
+**Status:** Completed for the public MVP through GitHub Pages. A custom domain remains optional future work.
+
 Release the core portfolio and case studies as the public MVP.
 
-- Configure production Vercel deployment from the main branch.
+- Configure production deployment from the main branch.
 - Connect the custom domain when available.
 - Add production metadata and social previews.
 - Complete responsive, accessibility, browser, performance, and link reviews.
@@ -91,6 +97,8 @@ Release the core portfolio and case studies as the public MVP.
 **Completion criteria:** The main branch deploys successfully to the production domain, the core site and two case studies are publicly available, and the release review has no unresolved critical issues.
 
 ### Phase 7 - Interactive Engineering Tool Integration
+
+**Status:** Completed for RF Dashboard Light 0.1.1. The Compliance Plan Generator remains outside the public-tool boundary.
 
 Add selected interactive engineering experiences without weakening the static-first editorial site.
 
@@ -132,9 +140,7 @@ For both projects, migration is complete when the project directory remains inde
 
 ## Deployment Milestone
 
-Phase 4 may first release RF Dashboard Light and the portfolio connection to it. The Compliance Plan Generator does not need to be complete or deployed for that release.
-
-The portfolio and standalone Dashboard may initially use separate preview or production deployments. Final canonical URL, subdomain, `/tools/` path, and custom-domain consolidation are decided during the later Phase 4 deployment-architecture work. Every deployment must remain incremental, validated, recorded, and reversible through versioned artifacts and Git history.
+Phase 4 released RF Dashboard Light and the Portfolio connection to it without deploying the Compliance Plan Generator. The selected GitHub Pages architecture uses one same-site production deployment: the Portfolio at `/personal-portfolio/` and the isolated standalone Dashboard at `/personal-portfolio/tools/rf-dashboard-light/`. The release is validated, recorded, and reversible through versioned artifacts and Git history; custom-domain consolidation remains deferred.
 
 ## Long-Term Maintenance Approach
 
