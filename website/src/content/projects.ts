@@ -302,9 +302,9 @@ const projectRecords = [
     index: "02",
     title: "Compliance Plan Generator",
     summary:
-      "A structured decision system that converts product inputs and rule logic into a reviewable draft compliance plan.",
+      "An in-development, rule-driven system for structuring product inputs, applicability logic, and traceable compliance-planning outputs with mandatory human review.",
     description:
-      "A traceable planning workflow that connects structured product inputs, deterministic requirement logic, review outputs, assumptions, and human confirmation.",
+      "An in-development planning architecture connecting structured product inputs, deterministic applicability logic, missing information, draft outputs, and expert review.",
     disciplines: [
       "Decision system",
       "Compliance workflow",
@@ -325,85 +325,91 @@ const projectRecords = [
       availability: "in-preparation",
       eyebrow: "Project record / compliance systems",
       detailIntroduction:
-        "The planning system converts product facts and rule applicability into a reviewable draft plan while keeping assumptions, missing inputs, and the human confirmation step visible throughout.",
+        "This in-development system is intended to turn structured product and market inputs into traceable draft compliance-planning outputs. Applicability remains deterministic, unresolved questions stay visible, and expert review is mandatory.",
       challenge:
-        "Compliance planning requires structured product inputs, rule applicability, traceable outputs, assumptions, and human review. Relevant information may be distributed across documents and reviewer knowledge, so the project focuses on making the planning workflow more structured and reviewable.",
+        "Compliance planning requires product characteristics, target markets, regulatory domains, missing information, applicability rules, required evidence, and review decisions to remain coordinated. Those inputs can be incomplete and rules can change by market, while proprietary knowledge must stay protected and every conclusion still requires expert judgment.",
       approach:
-        "The approach starts with structured Product DNA inputs and deterministic applicability logic, then groups results into requirement packages and reviewable draft outputs. Assumptions and missing inputs remain visible, with human review serving as the final confirmation step.",
+        "The current architecture is designed to move from structured Product DNA and classification through deterministic applicability rules, requirement packages, and draft outputs. AI may support explanation or drafting, but it does not determine final applicability. Missing inputs and open questions remain explicit, with human review serving as a required system boundary.",
       evidence: {
         caption:
-          "Sanitized decision-flow model showing how product facts, deterministic logic, and human review remain traceable in the planning workflow.",
+          "Public-safe architecture summary of the intended planning flow; it is not evidence of a finished product.",
         facts: [
           {
-            label: "Input scope",
-            value: "Structured product and market facts",
-          },
-          {
-            label: "System scope",
-            value: "6 connected planning and review areas",
+            label: "Development focus",
+            value: "Structure, traceability, and review",
           },
           {
             label: "Decision boundary",
-            value: "Draft output requires human confirmation",
+            value: "Deterministic applicability; AI does not decide scope",
+          },
+          {
+            label: "Public boundary",
+            value: "Architecture only; no public demonstration",
           },
         ],
         decisions: [
           {
             title: "Structure inputs before rules",
             description:
-              "Use explicit Product DNA fields so the planning context is visible before a rule path is evaluated.",
+              "The design uses explicit Product DNA and classification fields so the planning context can be reviewed before any applicability path is evaluated.",
           },
           {
-            title: "Keep assumptions in the output",
+            title: "Separate decisions from drafting",
             description:
-              "Carry uncertainty and incomplete information forward rather than hiding it behind an apparently final plan.",
+              "Applicability remains deterministic and traceable; AI assistance may explain or draft text but cannot establish the final compliance scope.",
           },
           {
-            title: "Make review a system boundary",
+            title: "Make expert review a system boundary",
             description:
-              "Treat human confirmation as a required control, not a postscript to an automated recommendation.",
+              "Carry assumptions, missing inputs, and open questions into review instead of hiding them behind an apparently final plan.",
           },
         ],
       },
       systemSections: [
         {
-          title: "Product inputs",
+          title: "Structured product inputs",
           description:
-            "Structured Product DNA fields that establish the planning context.",
+            "The current design starts with Product DNA and target-market inputs that establish the planning context.",
         },
         {
           title: "Product classification",
           description:
-            "A clear representation of the product attributes used for planning.",
+            "Classification is intended to organize the attributes that may affect later rule evaluation.",
         },
         {
-          title: "Rule logic",
+          title: "Applicability rules",
           description:
-            "A deterministic path for evaluating applicability without exposing rule content.",
+            "Deterministic rule paths are being developed without exposing proprietary rule content.",
         },
         {
           title: "Requirement packages",
           description:
-            "Grouped planning material that keeps related requirements reviewable.",
+            "The architecture is intended to group related requirements without implying complete rule coverage.",
         },
         {
-          title: "Draft plan output",
+          title: "Structured draft output",
           description:
-            "A traceable draft that carries inputs, assumptions, and planning context forward.",
+            "Draft output structures are intended to carry source inputs, assumptions, and planning context forward.",
+        },
+        {
+          title: "Missing inputs and open questions",
+          description:
+            "Unresolved information remains visible for follow-up instead of being converted into an unsupported conclusion.",
         },
         {
           title: "Human review",
           description:
-            "A final confirmation point for reviewing draft outputs and unresolved inputs.",
+            "Expert review remains mandatory before any draft output can inform an operational decision.",
         },
       ],
       currentState:
-        "The system architecture and data models are under active development. A lightweight rule-based implementation path is being validated, and outputs remain draft material requiring human review.",
+        "The project remains in active development, with no public demonstration and no readiness for external operational use. Rule coverage, output structures, and review behavior are still being implemented and validated. This public record describes architecture and workflow only; proprietary rules, internal datasets, and company-sensitive material are excluded. Any output remains draft material requiring expert review.",
       nextSteps: [
-        "Continue aligning inputs, rule logic, requirement packages, and output fields.",
-        "Validate the deterministic rule path with a smaller implementation.",
-        "Prepare sanitized interface views and workflow documentation.",
-        "Preserve traceability and human-review controls.",
+        "Validate rule accuracy against representative product scenarios.",
+        "Improve missing-input and open-question handling.",
+        "Strengthen traceability from source inputs through applicability decisions and draft outputs.",
+        "Verify output structures and the expert-review workflow with controlled test coverage.",
+        "Determine whether any future implementation can meet the separate gate for a public-safe demonstration.",
       ],
     },
     destinations: {
@@ -414,7 +420,13 @@ const projectRecords = [
     disclosureNotes: [
       {
         description:
-          "The project is in active development and does not currently offer a public demo.",
+          "The project remains in active development. This public page describes architecture and workflow only; no public demonstration is available. Proprietary rules and internal data are excluded, and expert review remains mandatory.",
+      },
+    ],
+    validationNotes: [
+      {
+        description:
+          "Architecture, rule-library boundaries, and output structures are being tested iteratively. Full regulatory coverage and production readiness have not been established.",
       },
     ],
   },

@@ -44,28 +44,29 @@ const planningCopy: Record<
   { caption: string; title: string }
 > = {
   overview: {
-    title: "Planning system overview",
-    caption: "A public-safe overview of the structured planning path.",
+    title: "Intended planning architecture",
+    caption:
+      "A public-safe system illustration of the intended path from structured inputs to human-reviewed draft outputs.",
   },
   feature: {
-    title: "Traceable planning flow",
+    title: "Intended planning flow",
     caption:
-      "A public-safe view of the relationship between inputs, rule logic, and review.",
+      "An architecture-oriented illustration of the in-development relationship between inputs, deterministic rules, and review.",
   },
   index: {
-    title: "Requirement planning flow",
+    title: "Planning architecture",
     caption:
-      "A public-safe representation of the workflow from product facts to a reviewable draft.",
+      "A public-safe system illustration, not evidence of a completed planning product.",
   },
   detail: {
-    title: "Draft-plan decision path",
+    title: "In-development decision path",
     caption:
-      "A closer public-safe view of the control points that keep a draft plan reviewable.",
+      "The intended control points for a draft planning workflow that still requires expert review.",
   },
   interface: {
-    title: "Review boundary view",
+    title: "Review-boundary illustration",
     caption:
-      "A public-safe interface view of assumptions and human confirmation in the planning flow.",
+      "A public-safe architecture view of assumptions, open questions, and mandatory human confirmation.",
   },
 };
 
@@ -423,17 +424,17 @@ function PlanningVisual({ variant }: { variant: ProjectVisualVariant }) {
 
   return (
     <svg
-      aria-label="Public-safe compliance planning decision-flow diagram"
+      aria-label="Public-safe system illustration of an intended compliance planning workflow"
       className="project-visual__svg"
       role="img"
       viewBox="0 0 720 450"
     >
       <rect fill="#F4F4F4" height="450" width="720" />
       <text fill="#161616" fontSize="19" fontWeight="600" x="42" y="55">
-        {isDetail ? "Review boundary view" : "Planning decision flow"}
+        {isDetail ? "Review boundary view" : "Intended planning flow"}
       </text>
       <text fill="#717171" fontSize="12" x="42" y="80">
-        Public-safe example · traceable draft workflow
+        Architecture illustration · in-development workflow
       </text>
       <g fill="#FFFFFF" stroke="#272727" strokeWidth="1.25">
         <rect height="90" rx="3" width="175" x="42" y="150" />

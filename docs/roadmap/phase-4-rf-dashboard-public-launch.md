@@ -77,9 +77,10 @@ This phase maps partially to the old Phase 5 case-study work, Phase 6 deployment
 ### Phase 4-5 – CPG Status Calibration
 
 - **Objective:** Ensure the Compliance Plan Generator is consistently presented as active development rather than a finished tool or launch deliverable.
-- **Expected outputs:** Calibrated status, current-state language, next steps, and hidden/absent live-tool actions.
-- **Implementation boundary:** No CPG deployment, completion claim, fictional interface, or new implementation work.
-- **Review gate:** Projects index, Home, and CPG detail page communicate the same development state.
+- **Expected outputs:** Calibrated Home, Projects, detail-page, metadata, disclosure, current-state, and next-step language with the temporary public-safe system illustration retained.
+- **Implementation boundary:** Completed locally with no CPG deployment, public demo, live URL, completion claim, fictional interface, or new implementation work. CPG remains an in-development project.
+- **Local status:** Public status and positioning are aligned across portfolio surfaces; proprietary rules and internal data remain excluded, and expert review is explicit. Phase 4-6 has not started.
+- **Review gate:** Home, Projects, CPG detail, metadata, disclosures, and actions communicate the same development state and expose no external CPG destination.
 
 ### Phase 4-6 – Deployment Architecture
 

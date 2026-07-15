@@ -80,8 +80,10 @@ export default function AboutPage() {
               <p>
                 The Global RF Spectrum Dashboard explores how regional spectrum
                 information can be compared in one navigable working surface.
-                The Compliance Plan Generator focuses on turning product facts
-                and rule logic into a reviewable draft plan.
+                The Compliance Plan Generator documents an in-development,
+                rule-driven architecture for structuring product facts,
+                applicability logic, unresolved questions, and human-reviewed
+                draft outputs.
               </p>
               <div className="profile-section__links">
                 <TextLink href="/projects/global-rf-spectrum-dashboard">
