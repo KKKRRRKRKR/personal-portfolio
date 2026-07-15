@@ -19,7 +19,8 @@ const qaDirectory = path.join(repositoryRoot, ".phase4-qa");
 const basePath = "/personal-portfolio";
 const serverPort = 4173;
 const browserPort = 9225;
-const origin = `http://127.0.0.1:${serverPort}`;
+const remoteOrigin = process.env.SMOKE_ORIGIN?.replace(/\/$/, "");
+const origin = remoteOrigin ?? `http://127.0.0.1:${serverPort}`;
 const chromePath =
   process.env.CHROME_PATH ??
   "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
@@ -80,7 +81,9 @@ const server = createServer(async (request, response) => {
   }
 });
 
-await new Promise((resolve) => server.listen(serverPort, "127.0.0.1", resolve));
+if (!remoteOrigin) {
+  await new Promise((resolve) => server.listen(serverPort, "127.0.0.1", resolve));
+}
 await mkdir(qaDirectory, { recursive: true });
 await mkdir(downloadDirectory, { recursive: true });
 
@@ -520,7 +523,9 @@ try {
 } finally {
   socket.close();
   browser.kill();
-  await new Promise((resolve) => server.close(resolve));
+  if (!remoteOrigin) {
+    await new Promise((resolve) => server.close(resolve));
+  }
   await delay(500);
   await rm(browserProfile, { recursive: true, force: true }).catch(() => {});
 }
