@@ -1,0 +1,2 @@
+# Preserve the exact bytes of the hash-locked standalone release artifact.
+deploy/rf-dashboard-light/index.html -text

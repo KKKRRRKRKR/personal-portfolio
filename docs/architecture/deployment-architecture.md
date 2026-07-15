@@ -53,6 +53,8 @@ RF Dashboard Light 0.1.1 is deterministically derived from the approved 0.1.0 pu
 
 The Dashboard URL remains stable while the visible semantic version and recorded hash identify its bytes. GitHub Pages controls response caching; immutable Next.js assets remain content-hashed. A new Dashboard release must update the version, artifact, manifest, Portfolio record, and release documentation together.
 
+The repository marks `deploy/rf-dashboard-light/index.html` as non-text in `.gitattributes` so Windows line-ending conversion cannot alter the hash-locked release bytes after checkout.
+
 ## Security and privacy
 
 GitHub Pages does not support repository-defined per-path response headers, so this architecture cannot truthfully claim custom `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `X-Frame-Options`, or `frame-ancestors` response headers. The Portfolio and Dashboard emit `strict-origin-when-cross-origin` referrer metadata, and the Dashboard emits `noindex, follow` robots metadata. External new-tab links use `noopener noreferrer`.
