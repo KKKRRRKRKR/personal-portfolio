@@ -1,6 +1,9 @@
 import { PageIntro } from "@/components/page-intro";
 
-export const metadata = { title: "Resume" };
+export const metadata = {
+  title: "Resume",
+  robots: { index: false, follow: true },
+};
 
 export default function ResumePage() {
   return (

@@ -1,3 +1,5 @@
+import { siteConfig } from "@/content/site";
+
 export type ProjectLifecycleStatus =
   "active-development" | "case-study-in-preparation" | "available" | "archived";
 
@@ -135,6 +137,29 @@ export type ProjectWithCaseStudy = ProjectRecord & {
   caseStudy: Exclude<ProjectCaseStudy, { availability: "unavailable" }>;
 };
 
+const rfDashboardUrl = `${siteConfig.url}/tools/rf-dashboard-light/`;
+const publicAsset = (assetPath: string) =>
+  `${siteConfig.basePath}${assetPath}` || assetPath;
+const rfIsPreview = siteConfig.deploymentContext === "preview";
+const rfReleaseState = rfIsPreview ? "public preview" : "public release";
+const rfLiveTool: LiveToolDestination = rfIsPreview
+  ? {
+      availability: "preview",
+      url: rfDashboardUrl,
+      label: "Open Dashboard preview",
+      accessibilityDescription:
+        "Open the RF Dashboard Light public preview in a new tab",
+      externalBehavior: "new-tab",
+    }
+  : {
+      availability: "available",
+      url: rfDashboardUrl,
+      label: "Open RF Dashboard",
+      accessibilityDescription:
+        "Open RF Dashboard Light in a new tab; desktop-first interface",
+      externalBehavior: "new-tab",
+    };
+
 const projectRecords = [
   {
     slug: "global-rf-spectrum-dashboard",
@@ -154,20 +179,20 @@ const projectRecords = [
     order: 1,
     visual: {
       kind: "image",
-      src: "/projects/rf-spectrum-dashboard/rf-dashboard-light-overview.png",
+      src: publicAsset(
+        "/projects/rf-spectrum-dashboard/rf-dashboard-light-overview.png",
+      ),
       alt: "Map-based RF spectrum dashboard with RF band, region, and country filters, a color-coded world map, country spectrum details, and public-candidate disclosure.",
       width: 1440,
       height: 900,
-      caption:
-        "Local public-safe release candidate. Public preview not yet available.",
+      caption: `Public-safe ${rfReleaseState}. Desktop-first interface.`,
       disclosure:
         "Reference data may be incomplete or outdated; verify current official requirements.",
     },
     caseStudy: {
       availability: "in-preparation",
       eyebrow: "Project record / RF systems",
-      detailIntroduction:
-        "RF Dashboard Light 0.1.0 is a sanitized local release candidate that brings regional spectrum ranges, country-level review, filtering, and power context into one coordinated engineering reference. The public preview is not yet available.",
+      detailIntroduction: `RF Dashboard Light 0.1.1 is a sanitized ${rfReleaseState} that brings regional spectrum ranges, country-level review, filtering, and power context into one coordinated engineering reference. The standalone tool is available through the public action on this page.`,
       challenge:
         "Regional spectrum information is difficult to compare consistently across markets, and a public portfolio record cannot expose internal workflow material or imply official regulatory completeness. The interface must keep geography, frequency ranges, power context, data limits, and release status understandable while remaining explicit that official requirements still need independent verification.",
       approach:
@@ -209,7 +234,9 @@ const projectRecords = [
       },
       interfaceEvidence: [
         {
-          src: "/projects/rf-spectrum-dashboard/rf-dashboard-light-country-state.png",
+          src: publicAsset(
+            "/projects/rf-spectrum-dashboard/rf-dashboard-light-country-state.png",
+          ),
           alt: "RF Dashboard Light Home view filtered to South Korea, with RF band, region, and country controls above the world map and South Korea spectrum details.",
           width: 1440,
           height: 900,
@@ -219,7 +246,9 @@ const projectRecords = [
             "This state is evidence of the current interface, not a claim of global regulatory completeness.",
         },
         {
-          src: "/projects/rf-spectrum-dashboard/rf-dashboard-light-spectrum-detail.png",
+          src: publicAsset(
+            "/projects/rf-spectrum-dashboard/rf-dashboard-light-spectrum-detail.png",
+          ),
           alt: "RF Dashboard Light Spectrum Detail view filtered to South Korea, showing RF filters, Band Scope controls, matrix headings, and the current oversized flag row-layout limitation.",
           width: 1440,
           height: 900,
@@ -256,40 +285,34 @@ const projectRecords = [
             "Visible limitations remain part of both tool views, and CSV output is restricted to seven reviewed public fields.",
         },
       ],
-      currentState:
-        "RF Dashboard Light 0.1.0 exists as a public-safe local release candidate. It retains 175 reviewed records from 245 source records, remains desktop-first, has no runtime external dependencies, and is not deployed. The screenshots document the current candidate, including an unresolved Spectrum Detail row-layout limitation.",
+      currentState: `RF Dashboard Light 0.1.1 is available as a public-safe ${rfReleaseState}. It retains 175 reviewed records from 245 source records, remains desktop-first, and has no runtime external dependencies. The screenshots document the reviewed interface, including an accepted Spectrum Detail row-layout limitation.`,
       nextSteps: [
-        "Resolve the recorded Spectrum Detail layout and known desktop UI issues without changing the reviewed public-data boundary.",
-        "Complete the 1024 px candidate acceptance work and revalidate map, filters, disclosure, matrix, and export behavior.",
-        "Establish and validate a working standalone preview in a later deployment phase.",
-        "Add a live-tool destination only after a real preview URL exists and passes release validation.",
+        "Monitor the public artifact and preserve the reviewed data boundary in future releases.",
+        "Address documented Spectrum Detail layout limitations only when they materially improve correct use.",
+        "Revalidate map, filters, disclosure, matrix, export, and indexing behavior for every public version.",
       ],
     },
     destinations: {
-      liveTool: {
-        availability: "planned",
-        label: "Open public Light dashboard",
-        accessibilityDescription:
-          "Open the public-safe Global RF Spectrum Dashboard Light tool",
-        externalBehavior: "new-tab",
-      },
+      liveTool: rfLiveTool,
       repository: { availability: "unavailable" },
       documentation: { availability: "unavailable" },
     },
     release: {
-      publicToolVersion: "RF Dashboard Light 0.1.0",
-      deploymentState: "not-deployed",
+      publicToolVersion: "RF Dashboard Light 0.1.1",
+      releaseDate: "2026-07-15",
+      datasetVersion: "Review candidate",
+      datasetDate: "Unverified",
+      deploymentState: rfIsPreview ? "preview" : "production",
     },
     disclosureNotes: [
       {
-        description:
-          "This personal engineering project is a public-safe local release candidate for reference and demonstration. Data may be incomplete or outdated; verify official requirements. No public preview is currently available.",
+        description: `This personal engineering project is a public-safe ${rfReleaseState} for reference and demonstration. Data may be incomplete or outdated; verify official requirements. The tool is desktop-first and the Spectrum Detail matrix intentionally uses horizontal scrolling.`,
       },
     ],
     validationNotes: [
       {
         description:
-          "Localhost validation covered identity, disclosure, map and filter behavior, Spectrum Detail navigation, row expansion, and the seven-field CSV export.",
+          "Local HTTP validation covered identity, disclosure, map and filter behavior, Spectrum Detail navigation, row expansion, and the seven-field CSV export.",
       },
       {
         description:

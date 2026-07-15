@@ -61,3 +61,6 @@ coverage/
 .netlify/
 .firebase/
 .wrangler/
+
+# Phase release validation output
+.phase4-qa/

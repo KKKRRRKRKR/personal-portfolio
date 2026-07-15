@@ -1,0 +1,87 @@
+name: Validate and deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+      - phase-4-rf-dashboard-public-launch
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: website
+    env:
+      NEXT_PUBLIC_BASE_PATH: /personal-portfolio
+      NEXT_PUBLIC_SITE_URL: https://kkkrrrkrkr.github.io/personal-portfolio
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set deployment context
+        shell: bash
+        run: |
+          if [[ "${GITHUB_REF_NAME}" == "main" && "${GITHUB_EVENT_NAME}" != "pull_request" ]]; then
+            echo "NEXT_PUBLIC_DEPLOYMENT_CONTEXT=production" >> "$GITHUB_ENV"
+            echo "VALIDATION_CONTEXT=production" >> "$GITHUB_ENV"
+          else
+            echo "NEXT_PUBLIC_DEPLOYMENT_CONTEXT=preview" >> "$GITHUB_ENV"
+            echo "VALIDATION_CONTEXT=preview" >> "$GITHUB_ENV"
+          fi
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: website/package-lock.json
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Check formatting
+        run: npm run format:check
+
+      - name: Check types
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build static deployment
+        run: npm run build:deploy
+
+      - name: Validate deployment artifact
+        run: npm run validate:deploy -- --context="${VALIDATION_CONTEXT}"
+
+      - name: Upload GitHub Pages artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: website/out
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

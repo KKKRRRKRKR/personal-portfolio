@@ -1,3 +1,4 @@
+import { ProjectActions } from "@/components/projects/project-actions";
 import { ProjectVisual } from "@/components/projects/project-visual";
 import { TextLink } from "@/components/ui/text-link";
 import type { ProjectWithCaseStudy } from "@/content/projects";
@@ -27,6 +28,7 @@ export function ProjectDetailHeader({ project }: ProjectDetailHeaderProps) {
           <h1>{project.title}</h1>
           <p>{project.summary}</p>
           <ProjectVisual project={project} variant="detail" />
+          <ProjectActions project={project} showCaseStudy={false} />
           <TextLink href="/projects">Back to all Projects</TextLink>
         </div>
       </div>

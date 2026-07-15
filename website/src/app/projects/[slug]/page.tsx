@@ -13,6 +13,7 @@ import {
   getRelatedPublicCaseStudy,
   publicCaseStudyProjects,
 } from "@/content/projects";
+import { siteConfig } from "@/content/site";
 
 type ProjectDetailPageProps = {
   params: Promise<{ slug: string }>;
@@ -38,8 +39,12 @@ export async function generateMetadata({
     title: project.title,
     description: project.summary,
     robots: {
-      index: project.indexability === "index",
-      follow: project.indexability === "index",
+      index:
+        siteConfig.deploymentContext === "production" &&
+        project.indexability === "index",
+      follow:
+        siteConfig.deploymentContext === "production" &&
+        project.indexability === "index",
     },
   };
 }
