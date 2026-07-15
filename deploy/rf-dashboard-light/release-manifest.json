@@ -1,0 +1,12 @@
+{
+  "product": "RF Dashboard Light",
+  "version": "0.1.1",
+  "releaseDate": "2026-07-15",
+  "sourceArtifact": "RF Dashboard Light 0.1.0.html",
+  "sourceSha256": "47B1502AFC2D8758F78D25804E405768B845FE683CF485036D0BC86EF8B6A76C",
+  "productionArtifact": "index.html",
+  "productionSha256": "D3165ECBA5AD073252F8AAFDA2CE33D512236CCE809C3F4BA24BB6E3806D7561",
+  "indexing": "noindex, follow",
+  "runtimeExternalDependencies": 0,
+  "transformation": "Release metadata patch plus visible focus indicators and country-row focus retention; public data, filtering, layout, and export behavior are unchanged."
+}
