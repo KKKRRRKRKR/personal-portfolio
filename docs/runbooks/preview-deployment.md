@@ -2,11 +2,11 @@
 
 ## Purpose
 
-Deploy the Phase branch to the GitHub Pages provider URL as the noindex early release candidate.
+Reproduce the noindex preview context locally or in pull-request validation. The temporary Phase-branch Pages deployment used for the Phase 4 release has been retired so a feature-branch push cannot overwrite production.
 
 ## Preconditions
 
-- Branch: `phase-4-rf-dashboard-public-launch`
+- Pull request targets `main`, or a local branch is checked out for equivalent validation.
 - Approved source, candidate, transform, and deployment hashes match the release records.
 - Worktree is clean after the intended commits.
 - The GitHub Pages workflow is enabled for the repository.
@@ -33,13 +33,9 @@ From the repository root, run the browser-equivalent checks:
 node scripts/browser-smoke.mjs
 ```
 
-## Deploy
+## Validate through a pull request
 
-Push the Phase branch. `.github/workflows/deploy-pages.yml` builds the preview context and deploys the `website/out` Pages artifact.
-
-```powershell
-git push -u origin phase-4-rf-dashboard-public-launch
-```
+Open or update a pull request targeting `main`. `.github/workflows/deploy-pages.yml` builds and validates the preview context but does not upload or deploy it. GitHub Pages is the production target only; use the local static output for visual preview unless a future architecture explicitly provisions an isolated preview host.
 
 ## Required public checks
 
@@ -54,4 +50,4 @@ Open the provider URL and confirm:
 - No Import, Admin, Portal, employer brand, private contact, or external runtime request appears.
 - CSV export has the seven approved headers.
 
-Record the workflow run/deployment identity, timestamp, response headers, URL, hash, and results in the preview release record. If the Pages environment rejects the Phase branch, do not relabel local validation as deployment; record the exact sanitized failure.
+For the historical Phase 4 early release candidate, record the workflow run/deployment identity, timestamp, response headers, URL, hash, and results in the preview release record. For later pull requests, record the validation workflow identity and local preview results without calling them a public deployment.

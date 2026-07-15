@@ -9,7 +9,7 @@
 - Deployment: not deployed
 - Live URL: none
 - External local working directory: `C:\Users\gul\Documents\Global_Wireless_Spectrum\Demo10_Public_Light`
-- Phase boundary: Phase 4-4A and portfolio-evidence work completed locally; Phase 4-5 has not started
+- Historical phase boundary at creation: Phase 4-4A and portfolio-evidence work completed locally; Phase 4-5 had not started
 
 This candidate is a standalone, self-contained HTML engineering reference. It is not registered as a portfolio live tool and makes no claim of official, regulatory, certification, licensing, or operating authority.
 
@@ -70,6 +70,10 @@ Authentic portfolio evidence was captured from this approved sanitized candidate
 
 The screenshots do not modify the candidate or imply public availability. Deployment remains `not-deployed`, and no live URL exists.
 
-## Next gate
+## Subsequent release
 
-Future deployment work must decide public hosting and URL registration, revalidate the deployed artifact, and keep case-study content separate from the standalone tool. This document does not authorize deployment, pushing, or adding a live-tool URL.
+This record remains the immutable historical identity of the 0.1.0 local candidate. Phase 4 later produced and deployed RF Dashboard Light 0.1.1 at `https://kkkrrrkrkr.github.io/personal-portfolio/tools/rf-dashboard-light/`. The deployed artifact SHA-256 is `D3165ECBA5AD073252F8AAFDA2CE33D512236CCE809C3F4BA24BB6E3806D7561`; the original and this approved 0.1.0 candidate were not modified.
+
+## Historical next gate
+
+At the time of this record, future deployment work still had to decide public hosting and URL registration, revalidate the deployed artifact, and keep case-study content separate from the standalone tool. This document did not itself authorize deployment, pushing, or adding a live-tool URL; those actions were completed through later reviewed Phase 4 records.

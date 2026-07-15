@@ -172,7 +172,7 @@ const projectRecords = [
     disciplines: ["Data visualization", "RF spectrum", "Interactive dashboard"],
     projectType: "Engineering data interface",
     status: "active-development",
-    statusLabel: "Public Light preparation",
+    statusLabel: "Public Light available",
     featured: true,
     visibility: "public",
     indexability: "index",
@@ -199,7 +199,7 @@ const projectRecords = [
         "The candidate remains a self-contained static HTML tool with no runtime external dependencies. Map selection, region and country filters, RF-band filtering, spectrum information, and the detail matrix are driven by one reviewed public dataset, while the editorial case study stays separate from the standalone tool and its future deployment path.",
       evidence: {
         caption:
-          "Verified local-candidate facts recorded during Public Light preparation.",
+          "Verified public-release facts established from the approved local candidate.",
         facts: [
           {
             label: "Public subset",
@@ -317,6 +317,10 @@ const projectRecords = [
       {
         description:
           "The current sanitized candidate retains 175 public records, with 70 source records withheld and no runtime external dependencies.",
+      },
+      {
+        description:
+          "Production validation passed across the Portfolio link, primary Dashboard interactions, keyboard focus retention, and seven-field CSV export with zero failed or external runtime requests.",
       },
     ],
   },

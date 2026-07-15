@@ -35,6 +35,8 @@ The contexts differ as follows:
 
 Only the successful deployment at a given time is served. There is no duplicate indexed Portfolio preview.
 
+The temporary Phase-branch deployment permission was used only to validate the early release candidate. After production promotion and closure it was retired: pushes deploy only from `main`, while pull requests still run the complete preview-context build and validation without publishing over production.
+
 ## Routing and static assets
 
 The Next.js application retains `output: "export"` and trailing-slash routes. GitHub Pages builds use `/personal-portfolio` as `basePath` and `assetPrefix`; local development retains an empty base path. Public evidence image paths are derived from the same build configuration rather than hard-coded provider paths.
@@ -59,7 +61,7 @@ The Dashboard relies on inline CSS and JavaScript. A strict CSP would require a 
 
 ## Deployment workflow
 
-`.github/workflows/deploy-pages.yml` validates pushes, pull requests, and manual runs. It installs the locked dependency tree, runs formatting, type, lint, static build, packaging, and release validation. Pushes to the Phase branch or `main` also upload and deploy the Pages artifact. The `github-pages` environment serializes deployments.
+`.github/workflows/deploy-pages.yml` validates pushes to `main`, pull requests targeting `main`, and manual runs. It installs the locked dependency tree, runs formatting, type, lint, static build, packaging, and release validation. Only `main` pushes and deliberate manual runs upload and deploy the Pages artifact; pull requests validate without deployment. The `github-pages` environment serializes deployments.
 
 ## Rollback
 

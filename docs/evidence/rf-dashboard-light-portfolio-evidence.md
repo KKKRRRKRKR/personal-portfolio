@@ -63,3 +63,5 @@ The Home overview and South Korea state avoid the known China whitespace and Jap
 ## Release boundary
 
 These images document a public-safe local release candidate for reference and demonstration. The public dataset may be incomplete or outdated, and current official requirements must be verified independently. No live URL, public preview, deployment, or employer endorsement exists.
+
+That final sentence records the state at capture time. A subsequent 0.1.1 release is now available at `https://kkkrrrkrkr.github.io/personal-portfolio/tools/rf-dashboard-light/` with deployment artifact SHA-256 `D3165ECBA5AD073252F8AAFDA2CE33D512236CCE809C3F4BA24BB6E3806D7561`. The screenshots remain unaltered evidence of the approved 0.1.0 candidate and are not represented as 0.1.1 captures.
