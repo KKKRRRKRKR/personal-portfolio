@@ -1,4 +1,4 @@
-# Phase 4 Rollback Runbook
+# Portfolio Rollback Runbook
 
 ## Rollback triggers
 
@@ -13,6 +13,19 @@ Rollback when the public Portfolio or Dashboard exposes sensitive content, loses
 5. Test the provider URL and record the replacement deployment identity.
 
 GitHub Pages keeps deployment history in the `github-pages` environment. A prior deployment is also recoverable by rebuilding its recorded Git commit rather than relying on mutable local output.
+
+### Phase 5 metadata and asset rollback
+
+If Phase 5 introduces a critical canonical, indexing, privacy, social-preview, or browser-identity failure, revert the Phase 5 merge through a reviewed pull request. Rebuild in both preview and production contexts and confirm:
+
+- approved production routes regain the last validated canonical and metadata output;
+- preview routes remain noindex and the preview sitemap remains empty;
+- Technical Notes and Resume remain noindex and absent from navigation and sitemap;
+- Contact placeholders remain noninteractive and contain no private destination;
+- the shared social preview and icons either match the last validated release or are removed together with their metadata references;
+- the frozen RF Dashboard artifact and manifest remain byte-identical.
+
+Do not use a temporary custom domain, publish a Contact destination, change the Dashboard artifact, or weaken metadata validation as a rollback shortcut.
 
 ## Dashboard rollback
 
