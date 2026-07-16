@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 
 import { PageIntro } from "@/components/page-intro";
 import { createPageMetadata } from "@/content/metadata";
-import { siteConfig } from "@/content/site";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Contact",
@@ -34,35 +33,15 @@ export default function ContactPage() {
           <dl className="contact-methods">
             <div>
               <dt>Email</dt>
-              <dd>
-                {siteConfig.contact.email ? (
-                  <a href={`mailto:${siteConfig.contact.email}`}>
-                    {siteConfig.contact.email}
-                  </a>
-                ) : (
-                  "—"
-                )}
-              </dd>
+              <dd>—</dd>
             </div>
             <div>
               <dt>LinkedIn</dt>
-              <dd>
-                {siteConfig.contact.linkedInUrl ? (
-                  <a href={siteConfig.contact.linkedInUrl}>LinkedIn</a>
-                ) : (
-                  "—"
-                )}
-              </dd>
+              <dd>—</dd>
             </div>
             <div>
               <dt>GitHub</dt>
-              <dd>
-                {siteConfig.contact.githubUrl ? (
-                  <a href={siteConfig.contact.githubUrl}>GitHub</a>
-                ) : (
-                  "—"
-                )}
-              </dd>
+              <dd>—</dd>
             </div>
           </dl>
         </div>
