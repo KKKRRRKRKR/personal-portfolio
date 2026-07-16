@@ -115,6 +115,7 @@ export interface ProjectRecord {
   index: string;
   title: string;
   summary: string;
+  metadataDescription: string;
   description: string;
   role?: string;
   disciplines: readonly string[];
@@ -167,6 +168,8 @@ const projectRecords = [
     title: "Global RF Spectrum Dashboard",
     summary:
       "An interactive, map-first interface for reviewing wireless spectrum and power information across global markets.",
+    metadataDescription:
+      "Portfolio project record for RF Dashboard Light 0.1.1, a public-safe standalone spectrum review tool with documented data limitations.",
     description:
       "A structured visualization environment that brings regional spectrum information, country-level review, filtering, and power-limit context into one navigable interface.",
     disciplines: ["Data visualization", "RF spectrum", "Interactive dashboard"],
@@ -330,6 +333,8 @@ const projectRecords = [
     title: "Compliance Plan Generator",
     summary:
       "An in-development, rule-driven system for structuring product inputs, applicability logic, and traceable compliance-planning outputs with mandatory human review.",
+    metadataDescription:
+      "An in-development compliance planning architecture for traceable product inputs, deterministic applicability logic, and mandatory expert review.",
     description:
       "An in-development planning architecture connecting structured product inputs, deterministic applicability logic, missing information, draft outputs, and expert review.",
     disciplines: [

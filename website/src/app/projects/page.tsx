@@ -1,9 +1,17 @@
+import type { Metadata } from "next";
+
 import { ProjectVisual } from "@/components/projects/project-visual";
 import { ProjectActions } from "@/components/projects/project-actions";
 import { PageIntro } from "@/components/page-intro";
 import { publicProjects } from "@/content/projects";
+import { createPageMetadata } from "@/content/metadata";
 
-export const metadata = { title: "Projects" };
+export const metadata: Metadata = createPageMetadata({
+  title: "Projects",
+  description:
+    "Selected engineering work in RF spectrum review and traceable compliance planning, with authentic evidence and explicit project boundaries.",
+  pathname: "/projects",
+});
 
 export default function ProjectsPage() {
   return (

@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 import "./globals.css";
 import { SiteShell } from "@/components/site-shell";
-import { siteConfig } from "@/content/site";
+import { siteAssetPath, siteConfig } from "@/content/site";
 
 const isPreview = siteConfig.deploymentContext === "preview";
 
@@ -13,9 +13,23 @@ export const metadata: Metadata = {
     default: "XG",
     template: "%s | XG",
   },
-  description:
-    "Engineering projects, technical systems, compliance tools, and selected technical writing.",
+  description: siteConfig.description,
   referrer: "strict-origin-when-cross-origin",
+  icons: {
+    icon: [
+      {
+        url: siteAssetPath("/favicon.svg"),
+        type: "image/svg+xml",
+      },
+    ],
+    apple: [
+      {
+        url: siteAssetPath("/icons/apple-touch-icon.png"),
+        sizes: "180x180",
+        type: "image/png",
+      },
+    ],
+  },
   robots: {
     index: !isPreview,
     follow: !isPreview,
