@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
 
 import { PageIntro } from "@/components/page-intro";
-import { siteConfig } from "@/content/site";
+import { createPageMetadata } from "@/content/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "Contact",
-  description: "Public contact options for XG's engineering systems portfolio.",
-};
+  description:
+    "The current public contact-channel status for XG's engineering portfolio; private destinations remain unpublished.",
+  pathname: "/contact",
+});
 
 export default function ContactPage() {
   return (
     <>
       <PageIntro
-        description="For conversations about engineering systems, compliance workflows, spectrum review, or making technical decisions easier to inspect."
+        description="Public professional contact destinations have not yet been approved. This page records the current availability without exposing private details."
         eyebrow="Contact"
         title="Contact"
       />
@@ -24,38 +26,22 @@ export default function ContactPage() {
           <h2 className="contact-section__title" id="contact-methods-title">
             Public contact methods
           </h2>
+          <p>
+            These channels remain intentionally noninteractive until a public
+            destination is approved.
+          </p>
           <dl className="contact-methods">
             <div>
               <dt>Email</dt>
-              <dd>
-                {siteConfig.contact.email ? (
-                  <a href={`mailto:${siteConfig.contact.email}`}>
-                    {siteConfig.contact.email}
-                  </a>
-                ) : (
-                  "—"
-                )}
-              </dd>
+              <dd>—</dd>
             </div>
             <div>
               <dt>LinkedIn</dt>
-              <dd>
-                {siteConfig.contact.linkedInUrl ? (
-                  <a href={siteConfig.contact.linkedInUrl}>LinkedIn</a>
-                ) : (
-                  "—"
-                )}
-              </dd>
+              <dd>—</dd>
             </div>
             <div>
               <dt>GitHub</dt>
-              <dd>
-                {siteConfig.contact.githubUrl ? (
-                  <a href={siteConfig.contact.githubUrl}>GitHub</a>
-                ) : (
-                  "—"
-                )}
-              </dd>
+              <dd>—</dd>
             </div>
           </dl>
         </div>

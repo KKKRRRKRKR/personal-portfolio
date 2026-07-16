@@ -20,6 +20,10 @@ Production is available at `https://kkkrrrkrkr.github.io/personal-portfolio/`, w
 
 The Compliance Plan Generator remains in active development. It is not a Phase 4 public-deployment deliverable and must not be presented as complete.
 
+The active execution phase is [Phase 5 - Portfolio Professional Readiness](./phase-5-portfolio-professional-readiness.md). It improves the deployed portfolio's metadata, social preview, browser identity, public copy, and release validation without changing the approved architecture or visual direction. The Phase 5-8 headings below are retained as the historical capability mapping that preceded the current execution rebaseline; their numbering no longer identifies the active release sequence.
+
+Formal public Contact destinations, a custom domain, Technical Notes publication, Resume publication, RF Dashboard 0.2, and any Compliance Plan Generator public demonstration remain deferred unless separately approved.
+
 ## Phase Breakdown
 
 ### Phase 0 - Vision and Visual Direction
@@ -70,7 +74,7 @@ Implement the approved visual system and the core portfolio experience.
 
 **Completion criteria:** Home, About, Projects, and Contact are reachable through shared navigation, responsive at supported sizes, aligned with the design system, and verified for baseline keyboard access, contrast, and semantic structure. Technical Notes and Resume are not required in navigation for this phase to be complete.
 
-### Phase 5 - Project Case Studies
+### Legacy Phase 5 - Project Case Studies
 
 **Status:** Partially complete. Both project records are public; RF uses authentic reviewed evidence, while both narratives remain explicitly marked as case studies in preparation.
 
@@ -83,7 +87,7 @@ Integrate engineering projects through a consistent public case-study model.
 
 **Completion criteria:** Both case studies follow the standard template, are accessible from the Projects index, contain reviewed technical evidence, and exclude sensitive or proprietary content.
 
-### Phase 6 - Production Deployment
+### Legacy Phase 6 - Production Deployment
 
 **Status:** Completed for the public MVP through GitHub Pages. A custom domain remains optional future work.
 
@@ -96,7 +100,7 @@ Release the core portfolio and case studies as the public MVP.
 
 **Completion criteria:** The main branch deploys successfully to the production domain, the core site and two case studies are publicly available, and the release review has no unresolved critical issues.
 
-### Phase 7 - Interactive Engineering Tool Integration
+### Legacy Phase 7 - Interactive Engineering Tool Integration
 
 **Status:** Completed for RF Dashboard Light 0.1.1. The Compliance Plan Generator remains outside the public-tool boundary.
 
@@ -109,7 +113,7 @@ Add selected interactive engineering experiences without weakening the static-fi
 
 **Completion criteria:** Any released integration has a documented integration decision, an accessible fallback or clear limitation, validated performance, and no unreviewed private or proprietary data exposure.
 
-### Phase 8 - Content Expansion and Maintenance
+### Legacy Phase 8 - Content Expansion and Maintenance
 
 Operate the portfolio as a maintained professional record rather than a one-time build.
 

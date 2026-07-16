@@ -13,6 +13,19 @@ Phase 4 is complete. The XG Portfolio and RF Dashboard Light 0.1.1 were promoted
 - GitHub Pages deployment: `5460619439`, successful `2026-07-15T16:35:24Z`
 - Final public browser smoke: passed at `2026-07-15T16:37:06Z`
 
+## Git and final deployment closure
+
+- Phase release pull request `#1`: merged as `66792c2ba912e646949fdf06b7568820ca3d7d3e`
+- Documentation closure pull request `#2`: merged as `4de22afdaa3df1f5d45d7287a2027c39a53cf502`
+- Cross-platform artifact-integrity pull request `#3`: merged as `e3745421eb04556f8270dfaf116a8b2aa8a4b8b6`
+- Final implementation deployment workflow: `29435349254`
+- Final implementation Pages deployment: `5461094040`, successful `2026-07-15T17:10:23Z`
+- Final full public browser suite: passed `2026-07-15T16:59:22Z`
+- Final live byte-hash check: passed `2026-07-15T17:12:31Z`; the public Dashboard remained `2,345,363` bytes with SHA-256 `D3165ECBA5AD073252F8AAFDA2CE33D512236CCE809C3F4BA24BB6E3806D7561`
+- Post-release repository audit: local `main` equaled `origin/main`, the working tree was clean, and `phase-4-rf-dashboard-public-launch` remained available
+
+Pull request `#3` introduced `.gitattributes` protection for the hash-locked Dashboard HTML after the final Windows audit detected automatic CRLF conversion in a local checkout. The live Linux deployment and repository blob were already correct; the policy makes the recorded byte identity stable across future Windows checkouts.
+
 The temporary Phase-branch Pages deployment was used for the noindex early release candidate and then retired. Pull requests continue to build and validate the preview context without publishing over production; `main` is the production deployment branch.
 
 ## RF Dashboard release identity

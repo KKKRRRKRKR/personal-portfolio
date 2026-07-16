@@ -43,6 +43,19 @@ The Next.js application retains `output: "export"` and trailing-slash routes. Gi
 
 Every Portfolio route exports a directory `index.html`, so direct refresh works on Pages. The export includes the generated 404 document, `robots.txt`, `sitemap.xml`, `.nojekyll`, and the Dashboard tool directory. The build remains serverless and requires no CMS, database, API, or runtime package.
 
+## Phase 5 metadata and browser identity
+
+Phase 5 keeps metadata in the static Next.js build. `website/src/content/site.ts` remains the single environment-aware source for the production site URL, base path, deployment context, social image, and intentionally unavailable Contact destinations. A small typed helper produces route-specific titles, descriptions, canonical URLs, Open Graph fields, Twitter summary-card fields, and robots behavior.
+
+- Production canonical URLs use `NEXT_PUBLIC_SITE_URL` and retain the current GitHub Pages `/personal-portfolio` path.
+- Public asset paths use `NEXT_PUBLIC_BASE_PATH` where browser-relative paths are required.
+- Preview builds remain `noindex, nofollow`; production public routes are `index, follow`; reserved Technical Notes and Resume routes are `noindex, follow` in production.
+- The production sitemap contains only Home, About, Projects, Contact, and the two approved project records.
+- The shared 1200 x 630 social preview is generated from a checked-in SVG source by a development-only headless-browser script. The generated PNG SHA-256 is `AD3BFD4A48E581E586D5A2CB648EC4B5BAAA2941080D3BF754F4C238F5D36512`.
+- The favicon is a static SVG and the 180 x 180 Apple touch icon is a generated PNG. No runtime image-generation service or production dependency is added.
+
+The architecture remains ready for a later approved custom domain because all absolute metadata URLs derive from `NEXT_PUBLIC_SITE_URL`. Phase 5 does not create a `CNAME`, change DNS, or alter the current production base path.
+
 ## Release identity and cache behavior
 
 RF Dashboard Light 0.1.1 is deterministically derived from the approved 0.1.0 public-safe candidate. The 0.1.1 patch adds release/indexing metadata, visible focus styling, and keyboard focus retention after country-row expansion. It does not change the public dataset, filtering, layout, or CSV schema.

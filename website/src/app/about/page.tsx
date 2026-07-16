@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 
 import { PageIntro } from "@/components/page-intro";
 import { TextLink } from "@/components/ui/text-link";
+import { createPageMetadata } from "@/content/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "About",
   description:
-    "XG builds inspectable engineering systems for spectrum, compliance, and product decisions.",
-};
+    "The working approach behind XG's inspectable engineering systems for spectrum, compliance, and product decisions.",
+  pathname: "/about",
+});
 
 export default function AboutPage() {
   return (

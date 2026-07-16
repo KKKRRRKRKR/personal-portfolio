@@ -15,7 +15,7 @@ import process from "node:process";
 
 const repositoryRoot = process.cwd();
 const outDirectory = path.join(repositoryRoot, "website", "out");
-const qaDirectory = path.join(repositoryRoot, ".phase4-qa");
+const qaDirectory = path.join(repositoryRoot, ".phase5-qa");
 const basePath = "/personal-portfolio";
 const serverPort = 4173;
 const browserPort = 9225;
@@ -82,7 +82,9 @@ const server = createServer(async (request, response) => {
 });
 
 if (!remoteOrigin) {
-  await new Promise((resolve) => server.listen(serverPort, "127.0.0.1", resolve));
+  await new Promise((resolve) =>
+    server.listen(serverPort, "127.0.0.1", resolve),
+  );
 }
 await mkdir(qaDirectory, { recursive: true });
 await mkdir(downloadDirectory, { recursive: true });
@@ -136,6 +138,7 @@ const listeners = new Map();
 const consoleErrors = [];
 const runtimeErrors = [];
 const failedRequests = [];
+const abortedRequests = [];
 const externalRequests = [];
 
 socket.addEventListener("message", (event) => {
@@ -159,7 +162,14 @@ socket.addEventListener("message", (event) => {
     runtimeErrors.push(message.params);
   }
   if (message.method === "Network.loadingFailed") {
-    failedRequests.push(message.params);
+    if (
+      message.params.canceled ||
+      message.params.errorText === "net::ERR_ABORTED"
+    ) {
+      abortedRequests.push(message.params);
+    } else {
+      failedRequests.push(message.params);
+    }
   }
   if (message.method === "Network.requestWillBeSent") {
     const url = message.params.request.url;
@@ -260,26 +270,53 @@ try {
     "/technical-notes/",
     "/resume/",
   ];
-  const portfolioWidths = [1440, 1280, 1024, 768, 390];
+  const portfolioViewports = [
+    [1440, 900],
+    [1280, 800],
+    [1024, 768],
+    [768, 1024],
+    [390, 844],
+  ];
 
-  for (const width of portfolioWidths) {
-    await setViewport(width, width === 390 ? 844 : 900);
+  for (const [width, height] of portfolioViewports) {
+    await setViewport(width, height);
     for (const route of portfolioRoutes) {
       await navigate(route);
       const state = await evaluate(`({
         hasHeading: Boolean(document.querySelector('h1')),
+        headingCount: document.querySelectorAll('h1').length,
+        hasMain: Boolean(document.querySelector('main')),
+        hasNavigation: Boolean(document.querySelector('nav[aria-label="Primary navigation"]')),
+        hasFooter: Boolean(document.querySelector('footer')),
         overflow: document.documentElement.scrollWidth > window.innerWidth + 1,
         imagesReady: [...document.images]
           .filter(image => image.loading !== 'lazy')
           .every(image => image.complete && image.naturalWidth > 0),
+        imagesNamed: [...document.images].every(image => Boolean(image.alt.trim())),
+        controlsNamed: [...document.querySelectorAll('a, button')]
+          .filter(element => element.getClientRects().length)
+          .every(element => Boolean((element.getAttribute('aria-label') || element.textContent).trim())),
         title: document.title
       })`);
       assert(state.hasHeading, `${route} has no h1 at ${width}px.`);
+      assert(
+        state.headingCount === 1,
+        `${route} must have one h1 at ${width}px.`,
+      );
+      assert(
+        state.hasMain && state.hasNavigation && state.hasFooter,
+        `${route} is missing a page landmark at ${width}px.`,
+      );
       assert(
         !state.overflow,
         `${route} has page-level overflow at ${width}px.`,
       );
       assert(state.imagesReady, `${route} has a broken image at ${width}px.`);
+      assert(state.imagesNamed, `${route} has an unnamed image at ${width}px.`);
+      assert(
+        state.controlsNamed,
+        `${route} has an unnamed control at ${width}px.`,
+      );
     }
   }
 
@@ -297,7 +334,62 @@ try {
   assert(menuOpened, "Portfolio mobile navigation did not open correctly.");
   await screenshot("portfolio-mobile-390.png");
 
+  await navigate("/contact/");
+  const contactState = await evaluate(`(() => {
+    const methods = document.querySelector('.contact-methods');
+    return {
+      labels: [...methods.querySelectorAll('dt')].map(item => item.textContent.trim()),
+      interactive: methods.querySelectorAll('a, button, input, textarea, select').length
+    };
+  })()`);
+  assert(
+    ["Email", "LinkedIn", "GitHub"].every((label) =>
+      contactState.labels.includes(label),
+    ),
+    "Contact placeholders are incomplete.",
+  );
+  assert(
+    contactState.interactive === 0,
+    "Contact placeholders became interactive.",
+  );
+  await screenshot("portfolio-contact-390.png");
+
+  await navigate("/");
+  await send("Input.dispatchKeyEvent", {
+    type: "rawKeyDown",
+    key: "Tab",
+    code: "Tab",
+    windowsVirtualKeyCode: 9,
+    nativeVirtualKeyCode: 9,
+  });
+  await send("Input.dispatchKeyEvent", {
+    type: "keyUp",
+    key: "Tab",
+    code: "Tab",
+    windowsVirtualKeyCode: 9,
+    nativeVirtualKeyCode: 9,
+  });
+  const skipLinkFocus = await evaluate(`(() => {
+    const element = document.activeElement;
+    const style = getComputedStyle(element);
+    return element.classList.contains('skip-link') &&
+      (style.outlineStyle !== 'none' || style.boxShadow !== 'none');
+  })()`);
+  assert(skipLinkFocus, "Portfolio skip link has no visible focus treatment.");
+
+  await navigate("/social/xg-social-preview.png");
+  const socialImageState = await evaluate(`(() => {
+    const image = document.images[0];
+    return image && { width: image.naturalWidth, height: image.naturalHeight };
+  })()`);
+  assert(
+    socialImageState?.width === 1200 && socialImageState?.height === 630,
+    "Social preview response dimensions changed.",
+  );
+
   await setViewport(1440, 900);
+  await navigate("/");
+  await screenshot("portfolio-home-1440.png");
   await navigate("/projects/global-rf-spectrum-dashboard/");
   const externalAction = await evaluate(`(() => {
     const link = document.querySelector('a[href*="/tools/rf-dashboard-light/"]');
@@ -505,13 +597,14 @@ try {
   const report = {
     checkedAt: new Date().toISOString(),
     portfolioRoutes,
-    portfolioWidths,
+    portfolioViewports,
     dashboardWidths: [1440, 1280, 1024],
     zoom: "200% at 1024x768",
     csvFile,
     consoleErrors: consoleErrors.length,
     runtimeErrors: runtimeErrors.length,
     failedRequests: failedRequests.length,
+    navigationAborts: abortedRequests.length,
     externalRequests: externalRequests.length,
   };
   await writeFile(

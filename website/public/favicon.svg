@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180" role="img" aria-label="XG">
+  <rect width="180" height="180" fill="#ffffff"/>
+  <rect x="9" y="9" width="162" height="162" fill="none" stroke="#111111" stroke-width="6"/>
+  <path d="M28 28H70M110 28H152M28 152H70M110 152H152" fill="none" stroke="#d4d4d4" stroke-width="3"/>
+  <text x="90" y="111" text-anchor="middle" fill="#111111" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="700" letter-spacing="-4">XG</text>
+</svg>
