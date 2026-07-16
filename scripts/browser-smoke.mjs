@@ -138,6 +138,7 @@ const listeners = new Map();
 const consoleErrors = [];
 const runtimeErrors = [];
 const failedRequests = [];
+const abortedRequests = [];
 const externalRequests = [];
 
 socket.addEventListener("message", (event) => {
@@ -161,7 +162,14 @@ socket.addEventListener("message", (event) => {
     runtimeErrors.push(message.params);
   }
   if (message.method === "Network.loadingFailed") {
-    failedRequests.push(message.params);
+    if (
+      message.params.canceled ||
+      message.params.errorText === "net::ERR_ABORTED"
+    ) {
+      abortedRequests.push(message.params);
+    } else {
+      failedRequests.push(message.params);
+    }
   }
   if (message.method === "Network.requestWillBeSent") {
     const url = message.params.request.url;
@@ -262,10 +270,16 @@ try {
     "/technical-notes/",
     "/resume/",
   ];
-  const portfolioWidths = [1440, 1280, 1024, 768, 390];
+  const portfolioViewports = [
+    [1440, 900],
+    [1280, 800],
+    [1024, 768],
+    [768, 1024],
+    [390, 844],
+  ];
 
-  for (const width of portfolioWidths) {
-    await setViewport(width, width === 390 ? 844 : 900);
+  for (const [width, height] of portfolioViewports) {
+    await setViewport(width, height);
     for (const route of portfolioRoutes) {
       await navigate(route);
       const state = await evaluate(`({
@@ -338,9 +352,23 @@ try {
     contactState.interactive === 0,
     "Contact placeholders became interactive.",
   );
+  await screenshot("portfolio-contact-390.png");
 
   await navigate("/");
-  await evaluate(`document.querySelector('.skip-link').focus()`);
+  await send("Input.dispatchKeyEvent", {
+    type: "rawKeyDown",
+    key: "Tab",
+    code: "Tab",
+    windowsVirtualKeyCode: 9,
+    nativeVirtualKeyCode: 9,
+  });
+  await send("Input.dispatchKeyEvent", {
+    type: "keyUp",
+    key: "Tab",
+    code: "Tab",
+    windowsVirtualKeyCode: 9,
+    nativeVirtualKeyCode: 9,
+  });
   const skipLinkFocus = await evaluate(`(() => {
     const element = document.activeElement;
     const style = getComputedStyle(element);
@@ -360,6 +388,8 @@ try {
   );
 
   await setViewport(1440, 900);
+  await navigate("/");
+  await screenshot("portfolio-home-1440.png");
   await navigate("/projects/global-rf-spectrum-dashboard/");
   const externalAction = await evaluate(`(() => {
     const link = document.querySelector('a[href*="/tools/rf-dashboard-light/"]');
@@ -567,13 +597,14 @@ try {
   const report = {
     checkedAt: new Date().toISOString(),
     portfolioRoutes,
-    portfolioWidths,
+    portfolioViewports,
     dashboardWidths: [1440, 1280, 1024],
     zoom: "200% at 1024x768",
     csvFile,
     consoleErrors: consoleErrors.length,
     runtimeErrors: runtimeErrors.length,
     failedRequests: failedRequests.length,
+    navigationAborts: abortedRequests.length,
     externalRequests: externalRequests.length,
   };
   await writeFile(
