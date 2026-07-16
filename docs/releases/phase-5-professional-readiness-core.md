@@ -40,7 +40,7 @@ All required local format, type, lint, production build, preview build, deployme
 ## Release identity
 
 - Implementation branch: `codex/phase-5-professional-readiness`
-- Pull request: pending
+- Pull request: `#4`
 - Reviewed merge commit: pending
 - Pull-request workflow: pending
 - Production workflow: pending
@@ -49,7 +49,7 @@ All required local format, type, lint, production build, preview build, deployme
 - Social preview SHA-256: `AD3BFD4A48E581E586D5A2CB648EC4B5BAAA2941080D3BF754F4C238F5D36512`
 - RF Dashboard SHA-256: `D3165ECBA5AD073252F8AAFDA2CE33D512236CCE809C3F4BA24BB6E3806D7561`
 
-These pending fields are release gates, not completed claims. They must be replaced with actual GitHub and production evidence after promotion.
+The remaining pending fields are release gates, not completed claims. They must be replaced with actual GitHub and production evidence after promotion.
 
 ## Accepted limitations and deferred work
 
