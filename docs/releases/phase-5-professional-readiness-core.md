@@ -2,7 +2,7 @@
 
 ## Release state
 
-**Status:** Local release candidate validated. GitHub pull request, merge, Pages deployment, and production smoke identities are pending reviewed promotion.
+**Status:** Completed in production on 2026-07-16. Pull request `#4` merged normally, the `main` Pages workflow and deployment succeeded, and the full live production smoke passed.
 
 This is intentionally named **Phase 5 Professional Readiness Core**. No approved public Contact destination or custom domain was supplied, so formal Contact readiness and custom-domain migration are not claimed.
 
@@ -41,15 +41,24 @@ All required local format, type, lint, production build, preview build, deployme
 
 - Implementation branch: `codex/phase-5-professional-readiness`
 - Pull request: `#4`
-- Reviewed merge commit: pending
-- Pull-request workflow: pending
-- Production workflow: pending
-- GitHub Pages deployment: pending
-- Production validation timestamp: pending
+- Reviewed merge commit: `b7388627bfc6bfd545bfcaf39cde52b044aa4a75`
+- Pull-request workflow: `29474261821`, build passed; deploy correctly skipped for pull-request context
+- Production workflow: `29474357265`, successful
+- GitHub Pages deployment: `5468494997`, successful at `2026-07-16T05:37:53Z`
+- Production validation timestamp: `2026-07-16T05:41:24.630Z`
 - Social preview SHA-256: `AD3BFD4A48E581E586D5A2CB648EC4B5BAAA2941080D3BF754F4C238F5D36512`
 - RF Dashboard SHA-256: `D3165ECBA5AD073252F8AAFDA2CE33D512236CCE809C3F4BA24BB6E3806D7561`
 
-The remaining pending fields are release gates, not completed claims. They must be replaced with actual GitHub and production evidence after promotion.
+## Production result
+
+- Home, About, Projects, Contact, and both project records returned HTTP 200.
+- All six approved routes exposed their correct absolute canonical URL, complete Open Graph metadata, and no private destination.
+- Production `robots.txt`, the six-route sitemap, and the shared social preview returned HTTP 200.
+- Technical Notes and Resume remained `noindex, follow`, outside navigation, and absent from sitemap.
+- Contact retained the three noninteractive placeholders; CPG retained `In active development` with no public destination.
+- Live browser validation at all required Portfolio and Dashboard sizes completed with zero console errors, runtime exceptions, failed resource requests, or unexpected external requests.
+- Dashboard interaction, keyboard focus, row expansion, disclosure, version, and seven-field CSV export passed.
+- The live RF Dashboard artifact remained SHA-256 `D3165ECBA5AD073252F8AAFDA2CE33D512236CCE809C3F4BA24BB6E3806D7561`.
 
 ## Accepted limitations and deferred work
 

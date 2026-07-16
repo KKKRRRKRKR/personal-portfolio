@@ -2,7 +2,7 @@
 
 ## Validation scope
 
-This record covers the local release-candidate validation for Phase 5 Professional Readiness Core. Production workflow, deployment, and live-smoke identities are added to the Phase 5 release record only after reviewed promotion to `main`.
+This record covers local release-candidate validation and the final production validation for Phase 5 Professional Readiness Core.
 
 ## Baseline gate
 
@@ -89,3 +89,20 @@ Browser validation completed at `2026-07-16T05:07:53.607Z`.
 - Runtime external dependencies: 0
 - Final local SHA-256: `D3165ECBA5AD073252F8AAFDA2CE33D512236CCE809C3F4BA24BB6E3806D7561`
 - Artifact bytes: unchanged from the Phase 4 production baseline
+
+## GitHub and production validation
+
+- Pull request: `#4`
+- Pull-request workflow: `29474261821`; build passed in 39 seconds and deployment correctly skipped
+- Merge method: normal merge commit
+- Production merge: `b7388627bfc6bfd545bfcaf39cde52b044aa4a75`
+- Production workflow: `29474357265`; successful
+- GitHub Pages deployment: `5468494997`; successful at `2026-07-16T05:37:53Z`
+- Production URL: `https://kkkrrrkrkr.github.io/personal-portfolio/`
+- Live browser validation: passed at `2026-07-16T05:41:24.630Z`
+
+The live browser suite repeated all eight Portfolio routes at 1440 x 900, 1280 x 800, 1024 x 768, 768 x 1024, and 390 x 844. The Dashboard regression repeated 1440 x 900, 1280 x 800, 1024 x 768, 200% zoom, keyboard interaction, row expansion, and CSV export. It reported zero console errors, runtime exceptions, failed resource requests, navigation aborts, and unexpected external requests.
+
+Direct production HTTP inspection confirmed six public HTTP 200 routes, correct route canonicals, complete Open Graph output, absent private destinations, crawlable production robots, a six-route sitemap, excluded reserved/tool routes, HTTP 200 social preview, valid PNG signature, CPG active-development state, noninteractive Contact placeholders, and production `noindex, follow` for Technical Notes and Resume.
+
+The live Dashboard returned HTTP 200, retained the visible 0.1.1 identity, `noindex, follow`, and public reference disclaimer, and matched SHA-256 `D3165ECBA5AD073252F8AAFDA2CE33D512236CCE809C3F4BA24BB6E3806D7561`.
