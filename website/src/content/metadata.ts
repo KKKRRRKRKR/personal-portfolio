@@ -48,7 +48,7 @@ export function createPageMetadata({
     },
     robots: {
       index: shouldIndex,
-      follow: isPreview ? false : indexable,
+      follow: !isPreview,
     },
   };
 }
