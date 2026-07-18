@@ -4,7 +4,7 @@
 
 The public MVP and Phase 4 RF Dashboard launch are complete. The production Portfolio and RF Dashboard Light 0.1.1 are deployed from `main` through GitHub Pages.
 
-Phase 6A custom-domain readiness is complete. [Phase 6B cutover preparation](./roadmap/phase-6b-custom-domain-cutover.md) is in progress; `gu-xin.com` remains unbound and not live, and the GitHub project Pages URL remains production.
+Phase 6A custom-domain readiness is complete. [Phase 6B cutover preparation](./roadmap/phase-6b-custom-domain-cutover.md) is in progress in open draft PR #7; it has not been merged or deployed. `gu-xin.com` remains unbound and not live, and the GitHub project Pages URL remains production.
 
 - Portfolio: `https://kkkrrrkrkr.github.io/personal-portfolio/`
 - RF Dashboard Light: `https://kkkrrrkrkr.github.io/personal-portfolio/tools/rf-dashboard-light/`
