@@ -54,14 +54,10 @@ async function listOutputFiles(directory, prefix = "") {
   const files = [];
 
   for (const entry of entries) {
-    const relativePath = path.join(prefix, entry.name);
+    const fileSystemPath = path.join(directory, entry.name);
+    const relativePath = path.posix.join(prefix, entry.name);
     if (entry.isDirectory()) {
-      files.push(
-        ...(await listOutputFiles(
-          path.join(directory, entry.name),
-          relativePath,
-        )),
-      );
+      files.push(...(await listOutputFiles(fileSystemPath, relativePath)));
     } else if (entry.isFile()) {
       files.push(relativePath);
     }
