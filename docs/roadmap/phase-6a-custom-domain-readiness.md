@@ -44,6 +44,10 @@ npm run build:validate:custom-domain-preview
 
 The GitHub Actions deployable artifact continues to use `github-pages`. A separate job builds and validates `custom-domain` but never uploads that output as the Pages artifact. Pull requests do not deploy.
 
+## Dependency audit note
+
+The Phase 6A locked install completed successfully with npm 11.9.0 and reported two moderate-severity audit findings in the committed dependency graph. This readiness phase does not run `npm audit fix`, automatically update dependencies, or modify `package-lock.json`; remediation remains a separate reviewed maintenance task.
+
 ## Preserved release and public-content boundaries
 
 - The Portfolio remains a static Next.js export with trailing-slash routes and unoptimized static images.
