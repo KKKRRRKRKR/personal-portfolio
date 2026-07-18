@@ -59,10 +59,10 @@ jobs:
         run: npm run lint
 
       - name: Build static deployment
-        run: npm run build:deploy -- --profile=github-pages --context="${VALIDATION_CONTEXT}"
+        run: npm run build:deploy -- --profile=custom-domain --context="${VALIDATION_CONTEXT}"
 
       - name: Validate deployment artifact
-        run: npm run validate:deploy -- --profile=github-pages --context="${VALIDATION_CONTEXT}"
+        run: npm run validate:deploy -- --profile=custom-domain --context="${VALIDATION_CONTEXT}"
 
       - name: Upload GitHub Pages artifact
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
@@ -70,7 +70,7 @@ jobs:
         with:
           path: website/out
 
-  custom-domain-readiness:
+  github-pages-rollback-readiness:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -89,12 +89,12 @@ jobs:
       - name: Install locked dependencies
         run: npm ci
 
-      - name: Build and validate custom-domain candidate
-        run: npm run build:validate:custom-domain
+      - name: Build and validate github-pages rollback candidate
+        run: npm run build:validate:github-pages
 
   deploy:
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
-    needs: [build, custom-domain-readiness]
+    needs: [build, github-pages-rollback-readiness]
     runs-on: ubuntu-latest
     environment:
       name: github-pages

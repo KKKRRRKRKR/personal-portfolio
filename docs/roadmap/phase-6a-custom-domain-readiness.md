@@ -1,6 +1,6 @@
 # Phase 6A — Custom Domain Readiness
 
-**Status:** In progress. Repository readiness only; `gu-xin.com` is not live or bound to GitHub Pages.
+**Status:** Completed and merged on 2026-07-18. Repository readiness only; `gu-xin.com` is not live or bound to GitHub Pages.
 
 **Readiness date:** 2026-07-18
 

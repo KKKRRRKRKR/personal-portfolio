@@ -4,7 +4,7 @@
 
 The public MVP and Phase 4 RF Dashboard launch are complete. The production Portfolio and RF Dashboard Light 0.1.1 are deployed from `main` through GitHub Pages.
 
-Phase 6A custom-domain readiness is in progress. It validates a future `gu-xin.com` root build without changing DNS, binding the domain, or replacing the current production profile.
+Phase 6A custom-domain readiness is complete. [Phase 6B cutover preparation](./roadmap/phase-6b-custom-domain-cutover.md) is in progress; `gu-xin.com` remains unbound and not live, and the GitHub project Pages URL remains production.
 
 - Portfolio: `https://kkkrrrkrkr.github.io/personal-portfolio/`
 - RF Dashboard Light: `https://kkkrrrkrkr.github.io/personal-portfolio/tools/rf-dashboard-light/`
@@ -25,6 +25,7 @@ Phase 6A custom-domain readiness is in progress. It validates a future `gu-xin.c
 - Maintain dependencies, links, accessibility, and public content through small reviewed changes.
 - Improve documented RF Dashboard limitations only when changes materially improve correct use.
 - Keep the Compliance Plan Generator private-tool boundary until its separate public-demo gate is satisfied.
-- Complete Phase 6A repository readiness; keep the actual custom-domain cutover, Technical Notes, Resume, and any analytics work separately scoped.
+- Review the Phase 6B cutover pull request, but do not merge it until the documented manual DNS, Pages-binding, verification, and rollback gates are ready.
+- Keep Technical Notes, Resume, and any analytics work separately scoped.
 
 The detailed implementation history remains in [Development Roadmap](./roadmap/development-roadmap.md) and [Phase 4 - RF Dashboard Public Launch Foundation](./roadmap/phase-4-rf-dashboard-public-launch.md).
