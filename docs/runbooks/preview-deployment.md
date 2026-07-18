@@ -15,22 +15,18 @@ Reproduce the noindex preview context locally or in pull-request validation. The
 
 From `website/` in PowerShell:
 
-```powershell
-$env:NEXT_PUBLIC_BASE_PATH='/personal-portfolio'
-$env:NEXT_PUBLIC_SITE_URL='https://kkkrrrkrkr.github.io/personal-portfolio'
-$env:NEXT_PUBLIC_DEPLOYMENT_CONTEXT='preview'
+```text
 npm ci
 npm run format:check
 npm run typecheck
 npm run lint
-npm run build:deploy
-npm run validate:deploy -- --context=preview
+npm run build:validate:preview
 ```
 
 From the repository root, run the browser-equivalent checks:
 
-```powershell
-node scripts/browser-smoke.mjs
+```text
+node scripts/browser-smoke.mjs --profile=github-pages
 ```
 
 ## Validate through a pull request

@@ -3,12 +3,15 @@ const deploymentContext =
     ? "preview"
     : "production";
 
-const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  "https://kkkrrrkrkr.github.io/personal-portfolio"
-).replace(/\/+$/, "");
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "").replace(/\/+$/, "");
 
 const basePath = (process.env.NEXT_PUBLIC_BASE_PATH ?? "").replace(/\/+$/, "");
+
+if (!siteUrl) {
+  throw new Error(
+    "NEXT_PUBLIC_SITE_URL is required by the deployment profile.",
+  );
+}
 
 export const siteConfig = {
   name: "XG",

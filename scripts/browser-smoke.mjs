@@ -13,17 +13,27 @@ import { tmpdir } from "node:os";
 import path from "node:path";
 import process from "node:process";
 
+import { getDeploymentProfile } from "../website/config/deployment-profiles.mjs";
+
 const repositoryRoot = process.cwd();
 const outDirectory = path.join(repositoryRoot, "website", "out");
-const qaDirectory = path.join(repositoryRoot, ".phase5-qa");
-const basePath = "/personal-portfolio";
+const profileArgument = process.argv.find((argument) =>
+  argument.startsWith("--profile="),
+);
+const profile = getDeploymentProfile(profileArgument?.split("=")[1]);
+const qaDirectory = path.join(repositoryRoot, ".phase6a-qa", profile.name);
+const { basePath } = profile;
 const serverPort = 4173;
 const browserPort = 9225;
 const remoteOrigin = process.env.SMOKE_ORIGIN?.replace(/\/$/, "");
 const origin = remoteOrigin ?? `http://127.0.0.1:${serverPort}`;
+const defaultChromePaths = {
+  darwin: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  linux: "/usr/bin/google-chrome",
+  win32: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+};
 const chromePath =
-  process.env.CHROME_PATH ??
-  "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe";
+  process.env.CHROME_PATH ?? defaultChromePaths[process.platform];
 const browserProfile = await mkdtemp(path.join(tmpdir(), "phase4-chrome-"));
 const downloadDirectory = path.join(browserProfile, "downloads");
 
@@ -596,6 +606,8 @@ try {
 
   const report = {
     checkedAt: new Date().toISOString(),
+    deploymentProfile: profile.name,
+    basePath,
     portfolioRoutes,
     portfolioViewports,
     dashboardWidths: [1440, 1280, 1024],

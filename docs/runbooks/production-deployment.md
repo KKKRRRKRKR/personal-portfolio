@@ -14,16 +14,18 @@ Promote the validated Phase release to the GitHub Pages production target from `
 
 From `website/` in PowerShell:
 
-```powershell
-$env:NEXT_PUBLIC_BASE_PATH='/personal-portfolio'
-$env:NEXT_PUBLIC_SITE_URL='https://kkkrrrkrkr.github.io/personal-portfolio'
-$env:NEXT_PUBLIC_DEPLOYMENT_CONTEXT='production'
+```text
 npm ci
 npm run format:check
 npm run typecheck
 npm run lint
-npm run build:deploy
-npm run validate:deploy -- --context=production
+npm run build:validate:github-pages
+```
+
+Phase 6A also requires the non-deploying root-domain gate:
+
+```text
+npm run build:validate:custom-domain
 ```
 
 ## Promote

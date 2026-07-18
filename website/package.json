@@ -3,16 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "build:deploy": "next build && node scripts/package-static-site.mjs",
+    "dev": "node scripts/run-deployment-profile.mjs dev --profile=github-pages --context=preview",
+    "build": "node scripts/run-deployment-profile.mjs build --profile=github-pages --context=production",
+    "build:deploy": "node scripts/run-deployment-profile.mjs build",
+    "build:validate:github-pages": "node scripts/run-deployment-profile.mjs build-and-validate --profile=github-pages --context=production",
+    "build:validate:custom-domain": "node scripts/run-deployment-profile.mjs build-and-validate --profile=custom-domain --context=production",
+    "build:validate:preview": "node scripts/run-deployment-profile.mjs build-and-validate --profile=github-pages --context=preview",
+    "build:validate:custom-domain-preview": "node scripts/run-deployment-profile.mjs build-and-validate --profile=custom-domain --context=preview",
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "generate:brand-assets": "node scripts/generate-brand-assets.mjs",
-    "validate:deploy": "node scripts/validate-deployment.mjs"
+    "validate:deploy": "node scripts/run-deployment-profile.mjs validate"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
