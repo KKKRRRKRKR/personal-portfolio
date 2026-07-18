@@ -1,24 +1,24 @@
 import { createHash } from "node:crypto";
-import { readFile, stat } from "node:fs/promises";
+import { readFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
+
+import { applyDeploymentProfile } from "../config/deployment-profiles.mjs";
 
 const contextArgument = process.argv.find((argument) =>
   argument.startsWith("--context="),
 );
-const context = contextArgument?.split("=")[1] ?? "production";
-
-if (!new Set(["preview", "production"]).has(context)) {
-  throw new Error(`Unsupported deployment context: ${context}`);
-}
+const profileArgument = process.argv.find((argument) =>
+  argument.startsWith("--profile="),
+);
+const context = contextArgument?.split("=")[1];
+const profileName = profileArgument?.split("=")[1];
+const profile = applyDeploymentProfile(profileName, context);
 
 const websiteRoot = process.cwd();
 const repositoryRoot = path.resolve(websiteRoot, "..");
 const outDirectory = path.join(websiteRoot, "out");
-const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  "https://kkkrrrkrkr.github.io/personal-portfolio"
-).replace(/\/+$/, "");
+const { basePath, siteUrl } = profile;
 const socialImageUrl = `${siteUrl}/social/xg-social-preview.png`;
 const requiredFiles = [
   "index.html",
@@ -48,6 +48,49 @@ for (const relativePath of requiredFiles) {
 
 const readOutput = (relativePath) =>
   readFile(path.join(outDirectory, relativePath), "utf8");
+
+async function listOutputFiles(directory, prefix = "") {
+  const entries = await readdir(directory, { withFileTypes: true });
+  const files = [];
+
+  for (const entry of entries) {
+    const relativePath = path.join(prefix, entry.name);
+    if (entry.isDirectory()) {
+      files.push(
+        ...(await listOutputFiles(
+          path.join(directory, entry.name),
+          relativePath,
+        )),
+      );
+    } else if (entry.isFile()) {
+      files.push(relativePath);
+    }
+  }
+
+  return files;
+}
+
+const outputFiles = await listOutputFiles(outDirectory);
+
+if (profile.name === "custom-domain") {
+  const forbiddenCustomDomainValues = [
+    "/personal-portfolio",
+    "kkkrrrkrkr.github.io",
+    "https://kkkrrrkrkr.github.io/personal-portfolio",
+  ];
+
+  for (const relativePath of outputFiles) {
+    const contents = await readFile(path.join(outDirectory, relativePath));
+    for (const forbiddenValue of forbiddenCustomDomainValues) {
+      if (contents.includes(Buffer.from(forbiddenValue))) {
+        throw new Error(
+          `Custom-domain output ${relativePath} retains forbidden value: ${forbiddenValue}`,
+        );
+      }
+    }
+  }
+}
+
 const routeDefinitions = [
   { pathname: "/", file: "index.html", indexable: true },
   { pathname: "/about/", file: "about/index.html", indexable: true },
@@ -150,6 +193,8 @@ function requireCanonical(html, expectedUrl, route) {
 }
 
 const publicDescriptions = new Set();
+const routeDescriptions = new Set();
+const routeTitles = new Set();
 for (const route of routeDefinitions) {
   const html = routeOutputs.get(route.pathname);
   const expectedCanonical = `${siteUrl}${route.pathname}`;
@@ -193,6 +238,14 @@ for (const route of routeDefinitions) {
   if (!title?.trim()) {
     throw new Error(`${route.pathname} has no document title.`);
   }
+  if (routeDescriptions.has(description)) {
+    throw new Error(`${route.pathname} reuses another route description.`);
+  }
+  if (routeTitles.has(title)) {
+    throw new Error(`${route.pathname} reuses another route title.`);
+  }
+  routeDescriptions.add(description);
+  routeTitles.add(title);
   if (route.indexable) publicDescriptions.add(description);
 }
 
@@ -258,6 +311,80 @@ for (const pattern of forbiddenPortfolioRuntimePatterns) {
   }
 }
 
+function internalOutputPath(value, sourceFile) {
+  const decodedValue = value.replaceAll("&amp;", "&");
+  if (
+    !decodedValue ||
+    decodedValue.startsWith("#") ||
+    /^(?:data|blob|mailto|tel|javascript):/i.test(decodedValue)
+  ) {
+    return undefined;
+  }
+
+  let pathname;
+  if (/^https?:\/\//i.test(decodedValue)) {
+    const parsedUrl = new URL(decodedValue);
+    if (parsedUrl.origin !== new URL(siteUrl).origin) return undefined;
+    pathname = parsedUrl.pathname;
+  } else if (decodedValue.startsWith("/")) {
+    pathname = new URL(decodedValue, siteUrl).pathname;
+  } else {
+    const sourceDirectory = path.posix.dirname(`/${sourceFile}`);
+    pathname = new URL(decodedValue, `${siteUrl}${sourceDirectory}/`).pathname;
+  }
+
+  if (pathname.includes("//")) {
+    throw new Error(`Malformed double slash in generated URL: ${decodedValue}`);
+  }
+
+  if (
+    basePath &&
+    pathname !== basePath &&
+    !pathname.startsWith(`${basePath}/`)
+  ) {
+    throw new Error(
+      `Generated URL escapes deployment base path ${basePath}: ${decodedValue}`,
+    );
+  }
+
+  const deploymentPath = basePath ? pathname.slice(basePath.length) : pathname;
+  const normalizedPath = decodeURIComponent(deploymentPath).replace(/^\/+/, "");
+  if (!normalizedPath) return "index.html";
+  if (normalizedPath.endsWith("/")) return `${normalizedPath}index.html`;
+  if (path.posix.extname(normalizedPath)) return normalizedPath;
+  return `${normalizedPath}/index.html`;
+}
+
+for (const [pathname, html] of routeOutputs) {
+  const sourceFile = routeDefinitions.find(
+    (route) => route.pathname === pathname,
+  ).file;
+  const referencedValues = [...html.matchAll(/\b(?:href|src)="([^"]+)"/g)].map(
+    (match) => match[1],
+  );
+
+  for (const value of referencedValues) {
+    const outputPath = internalOutputPath(value, sourceFile);
+    if (outputPath && !outputFiles.includes(outputPath)) {
+      throw new Error(
+        `${sourceFile} references missing generated output ${outputPath} via ${value}.`,
+      );
+    }
+  }
+}
+
+for (const cssFile of outputFiles.filter((file) => file.endsWith(".css"))) {
+  const css = await readOutput(cssFile);
+  for (const match of css.matchAll(/url\((?:"|')?([^"')]+)(?:"|')?\)/g)) {
+    const outputPath = internalOutputPath(match[1], cssFile);
+    if (outputPath && !outputFiles.includes(outputPath)) {
+      throw new Error(
+        `${cssFile} references missing generated output ${outputPath} via ${match[1]}.`,
+      );
+    }
+  }
+}
+
 const contactMethods = contact.match(
   /<dl class="contact-methods">([\s\S]*?)<\/dl>/,
 )?.[1];
@@ -265,7 +392,7 @@ if (!contactMethods || /<a\b|<button\b/i.test(contactMethods)) {
   throw new Error("Contact placeholders must exist and remain noninteractive.");
 }
 for (const label of ["Email", "LinkedIn", "GitHub"]) {
-  if (!contactMethods.includes(`<dt>${label}</dt>`)) {
+  if (!contactMethods.includes(`<dt>${label}</dt><dd>—</dd>`)) {
     throw new Error(`Contact placeholder is missing: ${label}.`);
   }
 }
@@ -289,6 +416,16 @@ if (context === "preview") {
       "Production sitemap does not match approved public routes.",
     );
   }
+}
+if (context === "production") {
+  const expectedSitemapDirective = `Sitemap: ${siteUrl}/sitemap.xml`;
+  if (!robots.includes(expectedSitemapDirective)) {
+    throw new Error(
+      `Production robots output is missing ${expectedSitemapDirective}.`,
+    );
+  }
+} else if (/^Sitemap:/m.test(robots)) {
+  throw new Error("Preview robots output must not publish a sitemap URL.");
 }
 for (const excludedPath of [
   "/technical-notes/",
@@ -331,8 +468,23 @@ if (/Open (?:CPG|Compliance Plan Generator)/i.test(cpgProject)) {
   throw new Error("CPG output contains an unsupported live-tool action.");
 }
 
-if (!cpgProject.includes("In active development")) {
-  throw new Error("CPG active-development status is missing.");
+const requiredCpgBoundaries = [
+  "In active development",
+  "no public demonstration",
+  "does not determine final applicability",
+  "expert review is mandatory",
+  "proprietary rules, internal datasets, and company-sensitive material are excluded",
+];
+for (const boundary of requiredCpgBoundaries) {
+  if (!cpgProject.includes(boundary)) {
+    throw new Error(`CPG public boundary is missing: ${boundary}.`);
+  }
+}
+if (
+  /<a\b[^>]+href="https?:\/\//i.test(cpgProject) ||
+  /Open live tool|View repository|Read documentation/i.test(cpgProject)
+) {
+  throw new Error("CPG output contains an unsupported public destination.");
 }
 
 if (context === "preview") {
@@ -359,6 +511,7 @@ const rfLinkTag = [...rfProject.matchAll(/<a\b[^>]*>/g)]
   .find((tag) => tag.includes("/tools/rf-dashboard-light/"));
 
 if (
+  !rfLinkTag?.includes(`href="${siteUrl}/tools/rf-dashboard-light/"`) ||
   !rfLinkTag?.includes('target="_blank"') ||
   !rfLinkTag.includes('rel="noopener noreferrer"')
 ) {
@@ -366,5 +519,5 @@ if (
 }
 
 process.stdout.write(
-  `Validated ${context} deployment output and Dashboard ${manifest.version} (${dashboardHash}).\n`,
+  `Validated ${profile.name} ${context} deployment output and Dashboard ${manifest.version} (${dashboardHash}).\n`,
 );

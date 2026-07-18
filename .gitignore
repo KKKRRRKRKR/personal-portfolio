@@ -65,3 +65,4 @@ coverage/
 # Phase release validation output
 .phase4-qa/
 .phase5-qa/
+.phase6a-qa/

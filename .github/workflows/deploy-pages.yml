@@ -24,9 +24,6 @@ jobs:
     defaults:
       run:
         working-directory: website
-    env:
-      NEXT_PUBLIC_BASE_PATH: /personal-portfolio
-      NEXT_PUBLIC_SITE_URL: https://kkkrrrkrkr.github.io/personal-portfolio
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
@@ -62,20 +59,42 @@ jobs:
         run: npm run lint
 
       - name: Build static deployment
-        run: npm run build:deploy
+        run: npm run build:deploy -- --profile=github-pages --context="${VALIDATION_CONTEXT}"
 
       - name: Validate deployment artifact
-        run: npm run validate:deploy -- --context="${VALIDATION_CONTEXT}"
+        run: npm run validate:deploy -- --profile=github-pages --context="${VALIDATION_CONTEXT}"
 
       - name: Upload GitHub Pages artifact
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v4
         with:
           path: website/out
 
+  custom-domain-readiness:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: website
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: website/package-lock.json
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Build and validate custom-domain candidate
+        run: npm run build:validate:custom-domain
+
   deploy:
-    if: github.event_name != 'pull_request'
-    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: [build, custom-domain-readiness]
     runs-on: ubuntu-latest
     environment:
       name: github-pages

@@ -1,10 +1,16 @@
 import createMDX from "@next/mdx";
 
+import { applyDeploymentProfile } from "./config/deployment-profiles.mjs";
+
 const withMDX = createMDX({
   extension: /\.mdx?$/,
 });
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const deploymentProfile = applyDeploymentProfile(
+  process.env.DEPLOYMENT_PROFILE,
+  process.env.NEXT_PUBLIC_DEPLOYMENT_CONTEXT,
+);
+const { basePath } = deploymentProfile;
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
