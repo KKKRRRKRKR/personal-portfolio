@@ -10,7 +10,7 @@ The Portfolio and RF Dashboard Light 0.1.1 are now served through GitHub Actions
 - RF Dashboard Light: `https://gu-xin.com/tools/rf-dashboard-light/`
 - Phase 6B pull request: [`#7`](https://github.com/KKKRRRKRKR/personal-portfolio/pull/7)
 - Phase 6B merge commit: `c22ff05e13b771da42f73b8e711840671aa404bc`
-- Phase 6C closure commit: `PENDING` until this release record is committed
+- Phase 6C closure commit: `a114aa3eb997142e3ebe7d3db548995a72fd9910`
 - Production workflow: [`29690637603`](https://github.com/KKKRRRKRKR/personal-portfolio/actions/runs/29690637603)
 - Pages deployment: `5511440038`, successful at `2026-07-19T14:21:34Z`
 
