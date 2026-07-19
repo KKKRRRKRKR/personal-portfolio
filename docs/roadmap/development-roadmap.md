@@ -16,13 +16,13 @@ The repository has completed the website foundation, the shared `Engineering Evi
 
 The rebaselined [Phase 4 - RF Dashboard Public Launch Foundation](./phase-4-rf-dashboard-public-launch.md) is complete. It combined public-safe case-study preparation, a reusable project/tool architecture, RF Dashboard Light 0.1.1 production deployment, and release validation without repeating completed Core Pages work.
 
-Production is available at `https://kkkrrrkrkr.github.io/personal-portfolio/`, with the standalone Dashboard at `https://kkkrrrkrkr.github.io/personal-portfolio/tools/rf-dashboard-light/`.
+Production is available at `https://gu-xin.com/`, with the standalone Dashboard at `https://gu-xin.com/tools/rf-dashboard-light/`. The former GitHub project URL is retained only as a legacy and rollback reference.
 
 The Compliance Plan Generator remains in active development. It is not a Phase 4 public-deployment deliverable and must not be presented as complete.
 
-The latest completed execution phase is [Phase 5 - Portfolio Professional Readiness](./phase-5-portfolio-professional-readiness.md). Phase 5 Professional Readiness Core completed in production on 2026-07-16 with route metadata, a social preview, browser identity, public-copy calibration, and stronger release validation, without changing the approved architecture or visual direction. The Phase 5-8 headings below are retained as the historical capability mapping that preceded the current execution rebaseline; their numbering no longer identifies the active release sequence.
+The latest completed execution work is Phase 6 custom-domain production closure. [Phase 6B](./phase-6b-custom-domain-cutover.md) completed the reviewed production-profile switch and custom-domain cutover, and [Phase 6C](../validation/phase-6c-production-validation.md) completed live production validation and release closure on 2026-07-19. The Phase 5-8 headings below are retained as the historical capability mapping that preceded the current execution rebaseline; their numbering no longer identifies the active release sequence.
 
-Formal public Contact destinations, a custom domain, Technical Notes publication, Resume publication, RF Dashboard 0.2, and any Compliance Plan Generator public demonstration remain deferred unless separately approved.
+Formal public Contact destinations, Technical Notes publication, Resume publication, RF Dashboard 0.2, and any Compliance Plan Generator public demonstration remain deferred unless separately approved.
 
 ## Phase Breakdown
 
@@ -89,7 +89,7 @@ Integrate engineering projects through a consistent public case-study model.
 
 ### Legacy Phase 6 - Production Deployment
 
-**Status:** Completed for the public MVP through GitHub Pages. A custom domain remains optional future work.
+**Status:** Completed through GitHub Actions Pages at the verified custom domain.
 
 Release the core portfolio and case studies as the public MVP.
 
@@ -144,7 +144,7 @@ For both projects, migration is complete when the project directory remains inde
 
 ## Deployment Milestone
 
-Phase 4 released RF Dashboard Light and the Portfolio connection to it without deploying the Compliance Plan Generator. The selected GitHub Pages architecture uses one same-site production deployment: the Portfolio at `/personal-portfolio/` and the isolated standalone Dashboard at `/personal-portfolio/tools/rf-dashboard-light/`. The release is validated, recorded, and reversible through versioned artifacts and Git history; custom-domain consolidation remains deferred.
+Phase 4 released RF Dashboard Light and the Portfolio connection to it without deploying the Compliance Plan Generator. Phase 6 retained the selected same-site GitHub Actions Pages architecture while moving the canonical host to `https://gu-xin.com/`: the Portfolio uses the root path and the isolated standalone Dashboard uses `/tools/rf-dashboard-light/`. The release is validated, recorded, and reversible through versioned artifacts, the non-deploying `github-pages` rollback profile, and Git history.
 
 ## Long-Term Maintenance Approach
 

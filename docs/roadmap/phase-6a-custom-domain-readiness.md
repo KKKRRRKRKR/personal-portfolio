@@ -1,18 +1,18 @@
 # Phase 6A — Custom Domain Readiness
 
-**Status:** Completed and merged on 2026-07-18. Repository readiness only; `gu-xin.com` is not live or bound to GitHub Pages.
+**Status:** Completed and merged on 2026-07-18. At Phase 6A closure, `gu-xin.com` was not live or bound to GitHub Pages; Phase 6B subsequently completed the production cutover.
 
 **Readiness date:** 2026-07-18
 
 ## Domain state
 
-- Future canonical host: `https://gu-xin.com`
-- Future canonical path: `/`
-- Future canonical domain: apex `gu-xin.com`
-- Planned redirect: `www.gu-xin.com` to `gu-xin.com`
+- Approved canonical host: `https://gu-xin.com`
+- Approved canonical path: `/`
+- Approved canonical domain: apex `gu-xin.com`
+- Approved redirect: `www.gu-xin.com` to `gu-xin.com`
 - GitHub account-level ownership verification: completed successfully
 - The Cloudflare verification TXT record must remain in place. GitHub documents that retaining this TXT record keeps ownership verification active.
-- Current production remains `https://kkkrrrkrkr.github.io/personal-portfolio/`.
+- Phase 6A production remained `https://kkkrrrkrkr.github.io/personal-portfolio/`; Phase 6B later moved canonical production to `https://gu-xin.com/`.
 
 This phase does not add apex `A` or `AAAA` records, does not add a `www` `CNAME`, does not modify the repository Pages custom-domain setting, and does not create a repository `CNAME` file. GitHub states that a `CNAME` file is not required for a custom GitHub Actions Pages publishing source. No DNS, Pages binding, production deployment, or domain cutover occurs in Phase 6A.
 
@@ -42,7 +42,7 @@ npm run build:validate:preview
 npm run build:validate:custom-domain-preview
 ```
 
-The GitHub Actions deployable artifact continues to use `github-pages`. A separate job builds and validates `custom-domain` but never uploads that output as the Pages artifact. Pull requests do not deploy.
+During Phase 6A, the GitHub Actions deployable artifact continued to use `github-pages`, while a separate job built and validated `custom-domain` without uploading it. Phase 6B later switched the guarded `main` artifact to `custom-domain` and retained `github-pages` as the non-deploying rollback gate. Pull requests do not deploy.
 
 ## Dependency audit note
 
@@ -58,9 +58,9 @@ The Phase 6A locked install completed successfully with npm 11.9.0 and reported 
 - RF Dashboard Light remains standalone static HTML, version `0.1.1`, with its public-safe data, seven-field CSV export, visible disclaimer, and `noindex, follow` policy unchanged.
 - Frozen RF Dashboard SHA-256: `D3165ECBA5AD073252F8AAFDA2CE33D512236CCE809C3F4BA24BB6E3806D7561`.
 
-## Future cutover sequence
+## Completed cutover sequence
 
-The following is a later, separately approved production operation. Reconfirm GitHub's published DNS endpoints at cutover time; do not copy provider addresses from an old runbook without verification.
+The following separately approved production operation was completed through Phase 6B and validated through Phase 6C. GitHub's published DNS endpoints were reconfirmed at cutover rather than copied from an unverified old runbook.
 
 1. Confirm the latest `main` `github-pages` deployment is healthy, the Phase 6A gates pass, the Dashboard hash matches, and the domain-verification TXT record is still present.
 2. Prepare and approve a small cutover change that switches only the deployable artifact from the `github-pages` profile to `custom-domain`. Keep the readiness jobs for both profiles. Do not merge it yet.
@@ -73,7 +73,7 @@ The following is a later, separately approved production operation. Reconfirm Gi
 9. Verify `https://www.gu-xin.com/` redirects to the apex. GitHub documents that when the apex is configured as the Pages custom domain and both DNS names are configured correctly, `www` redirects to the apex.
 10. Record the deployed commit, workflow run, DNS evidence, certificate state, redirect result, and production validation. Only then may the migration be marked complete.
 
-Binding the custom domain can change how GitHub serves or redirects the default `github.io` URL. Treat steps 3–8 as one controlled maintenance window and do not claim success until the HTTPS root build is validated.
+Binding the custom domain changed the default `github.io` URL into a redirect to the configured custom domain. Steps 3–8 were treated as one controlled maintenance window, and success was recorded only after the HTTPS root build passed Phase 6C validation.
 
 ## Exact rollback sequence
 

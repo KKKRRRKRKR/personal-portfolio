@@ -1,20 +1,20 @@
 # Phase 6B — Custom Domain Cutover Preparation
 
-**Status:** In progress in open draft PR #7. Pull-request preparation only; the PR is not merged or deployed, and `gu-xin.com` is unbound and not live.
+**Status:** Completed in production on 2026-07-19. Pull request `#7` merged normally, the custom-domain workflow and Pages deployment succeeded, and Phase 6C live validation passed.
 
 **Preparation date:** 2026-07-18
 
 ## Purpose
 
-Phase 6B prepares the smallest explicit production-profile switch for a later controlled cutover window. The branch changes which already-validated deployment profile the `main` workflow will upload after this pull request is merged:
+Phase 6B implemented the smallest explicit production-profile switch for the controlled cutover window. The merged workflow now uses the existing validated profiles as follows:
 
-- `custom-domain` becomes the future deployable `main` artifact at `https://gu-xin.com/` with an empty base path;
+- `custom-domain` is the deployable `main` artifact at `https://gu-xin.com/` with an empty base path;
 - `github-pages` remains a non-deploying production build and validation gate for rollback readiness;
 - pull requests build and validate but cannot upload or deploy a Pages artifact;
 - pull-request build and rollback-readiness jobs receive only `contents: read`; Pages write and OIDC token permissions are limited to the guarded `deploy` job;
 - only the deployable build job can upload the single `github-pages` artifact consumed by the Pages deploy job.
 
-This branch does not bind the domain, change DNS, modify GitHub Pages settings, provision HTTPS, deploy the custom-domain artifact, or make `gu-xin.com` live. Current production remains `https://kkkrrrkrkr.github.io/personal-portfolio/` until the separately approved cutover.
+The reviewed repository change did not itself modify Cloudflare DNS or GitHub Pages settings. Those manual operations were completed in the approved cutover window. Current production is `https://gu-xin.com/`, and the former GitHub project URL redirects to the custom domain while the binding is active.
 
 ## Workflow intent
 
@@ -26,9 +26,9 @@ This branch does not bind the domain, change DNS, modify GitHub Pages settings, 
 
 The profile contract, build scripts, static-export behavior, trailing slashes, image handling, metadata logic, and release validators remain unchanged. The workflow selects existing named profiles explicitly rather than duplicating scripts or hardcoding URL environment values.
 
-## Mandatory merge gate
+## Completed merge gate
 
-Do not merge the Phase 6B pull request until the manual cutover window is active and all of the following are confirmed:
+Before pull request `#7` was merged, the controlled cutover confirmed:
 
 1. `gu-xin.com` is saved as the repository's GitHub Pages custom domain.
 2. The four required Cloudflare apex `A` records and the `www` `CNAME` are published as DNS-only records using the verified GitHub Pages targets below.
@@ -38,7 +38,7 @@ Do not merge the Phase 6B pull request until the manual cutover window is active
 6. CAA readiness is checked: no CAA record is acceptable; if CAA records exist, they must permit Let's Encrypt certificate issuance.
 7. The Phase 6A rollback sequence is reviewed, the `github-pages` rollback profile passes, and the operator is ready to remove the binding and cutover DNS records if rollback is required.
 
-Those conditions are not completed by this branch and are not recorded as complete in this document.
+Those conditions were completed for the cutover and revalidated during Phase 6C. Exact GitHub, DNS, HTTP, metadata, browser, and Dashboard evidence is recorded in [Phase 6C Production Validation and Release Closure](../validation/phase-6c-production-validation.md).
 
 ## Cloudflare DNS-only cutover records
 
@@ -56,25 +56,25 @@ Use the following current GitHub Pages targets for the manual Cloudflare operati
 
 The `www` target must be the hostname only. It must not include `/personal-portfolio` or any other path. These records must not be added to repository code.
 
-All four apex `A` records and the `www` `CNAME` must remain **DNS only** throughout Phase 6B. Do not enable Cloudflare proxying and do not add a Cloudflare Redirect Rule for either the apex or `www`. GitHub Pages must provide the apex/`www` canonical redirect behavior. Proxying is intentionally excluded so the cutover does not introduce a second reverse proxy, separate TLS termination, caching, or redirect behavior while GitHub Pages DNS and certificate provisioning are being validated.
+All four apex `A` records and the `www` `CNAME` were required to remain **DNS only** throughout Phase 6B and remain in that mode at closure. Do not enable Cloudflare proxying and do not add a Cloudflare Redirect Rule for either the apex or `www` without a separate reviewed phase. GitHub Pages provides the apex/`www` canonical redirect behavior. Proxying was intentionally excluded so the cutover did not introduce a second reverse proxy, separate TLS termination, caching, or redirect behavior while GitHub Pages DNS and certificate provisioning were being validated.
 
-## Transition risk and controlled merge
+## Controlled transition result
 
-There is a temporary risk between saving the GitHub Pages custom domain and publishing DNS, merging Phase 6B, and completing the first `custom-domain` artifact deployment. The currently deployed artifact still uses the GitHub project Pages base path, `/personal-portfolio`. After DNS begins resolving but before the root-path production artifact is deployed, `gu-xin.com` may therefore be incomplete or serve broken asset paths.
+The cutover window accounted for the temporary risk between saving the GitHub Pages custom domain and publishing DNS, merging Phase 6B, and completing the first `custom-domain` artifact deployment. The previous artifact used the GitHub project Pages base path, `/personal-portfolio`, so the transition was not treated as complete until the root-path production artifact deployed.
 
-This transition is not a successful launch. Once DNS verification is complete and the merge gate is approved, proceed directly to the controlled merge and monitor the deployment without an unnecessary pause.
+The operator proceeded through the controlled merge and monitored the first custom-domain deployment without recording the transition state as a successful launch. Phase 6C subsequently confirmed that production contains no legacy base path or broken asset reference.
 
-## Manual cutover and post-merge work
+## Completed post-merge work
 
-After the merge triggers the first `custom-domain` production artifact:
+The merge triggered the first `custom-domain` production artifact. The completed post-merge checks were:
 
-1. Monitor the `build`, `github-pages-rollback-readiness`, and `deploy` jobs through a successful Pages deployment.
-2. Wait for GitHub's DNS check and Let's Encrypt certificate provisioning; do not record TLS or HTTPS as complete before GitHub reports certificate provisioning ready.
-3. Enable **Enforce HTTPS** only when GitHub makes it available, and do not record enforcement as complete before it is enabled and verified.
-4. Validate `https://gu-xin.com/`, every Portfolio and reserved route, sitemap, robots policies, assets, canonical and Open Graph metadata, the RF Dashboard bytes and export, browser console, and runtime requests.
-5. Verify `www.gu-xin.com` redirects to the apex.
+1. The `build`, `github-pages-rollback-readiness`, and `deploy` jobs completed successfully.
+2. GitHub's DNS check and Let's Encrypt certificate provisioning completed before TLS or HTTPS was recorded as ready.
+3. **Enforce HTTPS** was enabled and verified.
+4. `https://gu-xin.com/`, every Portfolio and reserved route, sitemap, robots policies, assets, canonical and Open Graph metadata, the RF Dashboard bytes and export, browser console, and runtime requests passed validation.
+5. `www.gu-xin.com` redirected to the HTTPS apex.
 
-After the custom domain is activated, the existing `https://kkkrrrkrkr.github.io/personal-portfolio/` URL may redirect to the configured custom domain. Treat that behavior as part of live cutover validation, not as a result completed by this preparation branch.
+The existing `https://kkkrrrkrkr.github.io/personal-portfolio/` URL now redirects to the configured custom domain. Phase 6C verified the redirect as a legacy-path behavior rather than a separate production origin.
 
 ## Rollback
 
