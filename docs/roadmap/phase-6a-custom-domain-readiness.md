@@ -1,6 +1,6 @@
 # Phase 6A — Custom Domain Readiness
 
-**Status:** In progress. Repository readiness only; `gu-xin.com` is not live or bound to GitHub Pages.
+**Status:** Completed and merged on 2026-07-18. Repository readiness only; `gu-xin.com` is not live or bound to GitHub Pages.
 
 **Readiness date:** 2026-07-18
 
@@ -65,7 +65,7 @@ The following is a later, separately approved production operation. Reconfirm Gi
 1. Confirm the latest `main` `github-pages` deployment is healthy, the Phase 6A gates pass, the Dashboard hash matches, and the domain-verification TXT record is still present.
 2. Prepare and approve a small cutover change that switches only the deployable artifact from the `github-pages` profile to `custom-domain`. Keep the readiness jobs for both profiles. Do not merge it yet.
 3. In repository **Settings → Pages**, save `gu-xin.com` as the custom domain. For an Actions publishing source, do not add a `CNAME` file.
-4. In Cloudflare, add the current GitHub Pages apex records documented by GitHub and add `www` as a `CNAME` directly to `kkkrrrkrkr.github.io` without a repository path. Retain the verification TXT record. Avoid wildcard or conflicting apex/`www` records. Use DNS-only resolution while GitHub validates and provisions the certificate unless a separately tested Cloudflare proxy configuration is approved.
+4. In Cloudflare, add the current GitHub Pages apex records documented by GitHub and add `www` as a `CNAME` directly to `kkkrrrkrkr.github.io` without a repository path. Retain the verification TXT record. Avoid wildcard or conflicting apex/`www` records. Phase 6B requires DNS-only resolution while GitHub validates and provisions the certificate; Cloudflare proxying is excluded from this cutover and would require a separate later review.
 5. Verify public DNS for the apex and `www` names. GitHub notes DNS propagation can take up to 24 hours.
 6. Merge the approved cutover change and allow the `main` workflow to upload only the `custom-domain` root artifact. Do not upload the readiness job's output.
 7. Wait for GitHub's custom-domain DNS check and automatic Let's Encrypt certificate provisioning. GitHub says HTTPS can take up to an hour after configuration, while the **Enforce HTTPS** option can take up to 24 hours to become available. If CAA records exist, ensure they permit `letsencrypt.org`.
@@ -80,7 +80,7 @@ Binding the custom domain can change how GitHub serves or redirects the default 
 1. Stop further cutover changes and record the failing deployment and observed behavior.
 2. Revert the deployable workflow to the `github-pages` profile and prepare the known-good project-path artifact.
 3. Remove `gu-xin.com` from repository **Settings → Pages**, then deploy the known-good `github-pages` artifact from `main`.
-4. Remove only the cutover apex `A`/`AAAA` records and `www` `CNAME` from Cloudflare. Retain the GitHub ownership-verification TXT record.
+4. Remove only the four cutover apex `A` records and the cutover `www` `CNAME` from Cloudflare. Retain the GitHub ownership-verification TXT record.
 5. Verify `https://kkkrrrkrkr.github.io/personal-portfolio/`, all routes and assets, the Dashboard action and SHA-256, metadata, robots, sitemap, console, network, and export behavior.
 6. Confirm `gu-xin.com` is no longer represented as live and record the rollback commit, workflow run, DNS state, and validation result.
 
