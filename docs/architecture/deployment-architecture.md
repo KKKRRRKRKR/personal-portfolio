@@ -45,7 +45,7 @@ Every Portfolio route exports a directory `index.html`, so direct refresh works 
 
 ## Phase 5 metadata and browser identity
 
-Phase 5 keeps metadata in the static Next.js build. `website/src/content/site.ts` remains the single environment-aware source for the production site URL, base path, deployment context, social image, and intentionally unavailable Contact destinations. A small typed helper produces route-specific titles, descriptions, canonical URLs, Open Graph fields, Twitter summary-card fields, and robots behavior.
+Phase 5 keeps metadata in the static Next.js build. `website/src/content/site.ts` remains the single environment-aware source for the production site URL, base path, deployment context, social image, and public Contact identity. A small typed helper produces route-specific titles, descriptions, canonical URLs, Open Graph fields, Twitter summary-card fields, and robots behavior.
 
 - Production canonical URLs use `NEXT_PUBLIC_SITE_URL` and retain the current GitHub Pages `/personal-portfolio` path.
 - Public asset paths use `NEXT_PUBLIC_BASE_PATH` where browser-relative paths are required.
@@ -55,6 +55,12 @@ Phase 5 keeps metadata in the static Next.js build. `website/src/content/site.ts
 - The favicon is a static SVG and the 180 x 180 Apple touch icon is a generated PNG. No runtime image-generation service or production dependency is added.
 
 The architecture remains ready for a later approved custom domain because all absolute metadata URLs derive from `NEXT_PUBLIC_SITE_URL`. Phase 5 does not create a `CNAME`, change DNS, or alter the current production base path.
+
+## Phase 7A public identity
+
+Phase 7A activates two approved user-selected destinations without adding a runtime service: `mailto:guxin1943@gmail.com` and `https://github.com/KKKRRRKRKR`. GitHub follows the existing safe external-link policy and opens in a new tab with `noopener noreferrer`; Email uses a native `mailto:` link. LinkedIn, forms, backend endpoints, CAPTCHA, analytics, tracking, remote fonts, and third-party scripts remain absent.
+
+The root layout emits one consistent Schema.org `Person` record per page. Its public identity is limited to `XG`, the active deployment URL, the approved Email, and a `sameAs` array containing only the approved GitHub profile. The static deployment validator rejects duplicate or conflicting Person records, unapproved identity fields, LinkedIn output, incorrect Contact destinations, and automatic third-party runtime assets.
 
 ## Release identity and cache behavior
 

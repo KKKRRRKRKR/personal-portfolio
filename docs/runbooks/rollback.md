@@ -27,6 +27,12 @@ If Phase 5 introduces a critical canonical, indexing, privacy, social-preview, o
 
 Do not use a temporary custom domain, publish a Contact destination, change the Dashboard artifact, or weaken metadata validation as a rollback shortcut.
 
+### Phase 7A public contact rollback
+
+If an approved public Contact destination or Person identity record is incorrect, revert the Phase 7A merge through a reviewed pull request and redeploy the last validated custom-domain artifact. Confirm that Contact, metadata, structured data, sitemap, robots, privacy validation, and browser smoke results match the selected rollback commit.
+
+Do not replace the approved destinations with an inferred social profile, contact form, backend, CAPTCHA, analytics, tracking, or inaccessible script-based email treatment. Preserve the frozen RF Dashboard artifact and manifest throughout the rollback.
+
 ### Phase 6 custom-domain rollback
 
 If application content is faulty but DNS, the Pages binding, and HTTPS are healthy, revert the faulty release through a reviewed pull request and redeploy a known-good `custom-domain` artifact. Revalidate the apex, `www` redirect, metadata, assets, sitemap, robots, privacy boundary, and Dashboard hash.

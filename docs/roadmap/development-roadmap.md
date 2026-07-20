@@ -20,9 +20,9 @@ Production is available at `https://gu-xin.com/`, with the standalone Dashboard 
 
 The Compliance Plan Generator remains in active development. It is not a Phase 4 public-deployment deliverable and must not be presented as complete.
 
-The latest completed execution work is Phase 6 custom-domain production closure. [Phase 6B](./phase-6b-custom-domain-cutover.md) completed the reviewed production-profile switch and custom-domain cutover, and [Phase 6C](../validation/phase-6c-production-validation.md) completed live production validation and release closure on 2026-07-19. The Phase 5-8 headings below are retained as the historical capability mapping that preceded the current execution rebaseline; their numbering no longer identifies the active release sequence.
+The latest completed production work is Phase 6 custom-domain closure. [Phase 6B](./phase-6b-custom-domain-cutover.md) completed the reviewed production-profile switch and custom-domain cutover, and [Phase 6C](../validation/phase-6c-production-validation.md) completed live production validation and release closure on 2026-07-19. [Phase 7A](./phase-7a-public-contact.md) is the next review candidate and activates only the approved Email and GitHub public identity destinations. The Phase 5-8 headings below are retained as the historical capability mapping that preceded the current execution rebaseline; their numbering no longer identifies the active release sequence.
 
-Formal public Contact destinations, Technical Notes publication, Resume publication, RF Dashboard 0.2, and any Compliance Plan Generator public demonstration remain deferred unless separately approved.
+LinkedIn, a contact form or backend, Technical Notes publication, Resume publication, RF Dashboard 0.2, and any Compliance Plan Generator public demonstration remain deferred unless separately approved.
 
 ## Phase Breakdown
 

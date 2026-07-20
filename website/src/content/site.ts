@@ -7,6 +7,9 @@ const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? "").replace(/\/+$/, "");
 
 const basePath = (process.env.NEXT_PUBLIC_BASE_PATH ?? "").replace(/\/+$/, "");
 
+const publicEmail = "guxin1943@gmail.com";
+const publicGithubUrl = "https://github.com/KKKRRRKRKR";
+
 if (!siteUrl) {
   throw new Error(
     "NEXT_PUBLIC_SITE_URL is required by the deployment profile.",
@@ -27,10 +30,20 @@ export const siteConfig = {
     alt: "XG engineering portfolio social preview with editorial typography and technical reference rules.",
   },
   contact: {
-    email: null,
-    githubUrl: null,
-    linkedInUrl: null,
+    email: publicEmail,
+    emailUrl: `mailto:${publicEmail}`,
+    githubUrl: publicGithubUrl,
   },
+} as const;
+
+export const personStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${siteConfig.url}/#person`,
+  name: siteConfig.name,
+  url: `${siteConfig.url}/`,
+  email: siteConfig.contact.emailUrl,
+  sameAs: [siteConfig.contact.githubUrl],
 } as const;
 
 function normalizedPath(pathname: string) {
