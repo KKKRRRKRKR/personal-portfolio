@@ -2,12 +2,12 @@
 
 ## Current state
 
-The public MVP and Phase 4 RF Dashboard launch are complete. The production Portfolio and RF Dashboard Light 0.1.1 are deployed from `main` through GitHub Pages.
+The public MVP, RF Dashboard Light 0.1.1 launch, custom-domain cutover, and first custom-domain production validation are complete. Production deploys from `main` through GitHub Actions Pages.
 
-Phase 6A custom-domain readiness is complete. [Phase 6B cutover preparation](./roadmap/phase-6b-custom-domain-cutover.md) is in progress in open draft PR #7; it has not been merged or deployed. `gu-xin.com` remains unbound and not live, and the GitHub project Pages URL remains production.
+Phase 6A readiness, [Phase 6B custom-domain cutover](./roadmap/phase-6b-custom-domain-cutover.md), and [Phase 6C production validation and release closure](./validation/phase-6c-production-validation.md) are complete. The canonical production domain is `https://gu-xin.com/`; the former GitHub project URL is a legacy and rollback reference.
 
-- Portfolio: `https://kkkrrrkrkr.github.io/personal-portfolio/`
-- RF Dashboard Light: `https://kkkrrrkrkr.github.io/personal-portfolio/tools/rf-dashboard-light/`
+- Portfolio: `https://gu-xin.com/`
+- RF Dashboard Light: `https://gu-xin.com/tools/rf-dashboard-light/`
 - Compliance Plan Generator: public case study only; still in active development
 - Technical Notes and Resume: reserved, noindex routes outside primary navigation
 
@@ -25,7 +25,7 @@ Phase 6A custom-domain readiness is complete. [Phase 6B cutover preparation](./r
 - Maintain dependencies, links, accessibility, and public content through small reviewed changes.
 - Improve documented RF Dashboard limitations only when changes materially improve correct use.
 - Keep the Compliance Plan Generator private-tool boundary until its separate public-demo gate is satisfied.
-- Review the Phase 6B cutover pull request, but do not merge it until the documented manual DNS, Pages-binding, verification, and rollback gates are ready.
+- Maintain the custom-domain production and `github-pages` rollback-readiness gates through small reviewed changes.
 - Keep Technical Notes, Resume, and any analytics work separately scoped.
 
-The detailed implementation history remains in [Development Roadmap](./roadmap/development-roadmap.md) and [Phase 4 - RF Dashboard Public Launch Foundation](./roadmap/phase-4-rf-dashboard-public-launch.md).
+The detailed implementation history remains in [Development Roadmap](./roadmap/development-roadmap.md), [Phase 4 - RF Dashboard Public Launch Foundation](./roadmap/phase-4-rf-dashboard-public-launch.md), and [Phase 6 Production Closure](./releases/phase-6-production-closure.md).

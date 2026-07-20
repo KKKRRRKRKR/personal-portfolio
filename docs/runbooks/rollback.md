@@ -10,7 +10,7 @@ Rollback when the public Portfolio or Dashboard exposes sensitive content, loses
 2. Create a reviewable revert of the release commit(s); do not force-push `main`.
 3. Run the production-equivalent build and validation from [Production Deployment](./production-deployment.md).
 4. Merge the revert and allow the `main` Pages workflow to redeploy.
-5. Test the provider URL and record the replacement deployment identity.
+5. Test the canonical production URL and record the replacement deployment identity.
 
 GitHub Pages keeps deployment history in the `github-pages` environment. A prior deployment is also recoverable by rebuilding its recorded Git commit rather than relying on mutable local output.
 
@@ -27,6 +27,22 @@ If Phase 5 introduces a critical canonical, indexing, privacy, social-preview, o
 
 Do not use a temporary custom domain, publish a Contact destination, change the Dashboard artifact, or weaken metadata validation as a rollback shortcut.
 
+### Phase 6 custom-domain rollback
+
+If application content is faulty but DNS, the Pages binding, and HTTPS are healthy, revert the faulty release through a reviewed pull request and redeploy a known-good `custom-domain` artifact. Revalidate the apex, `www` redirect, metadata, assets, sitemap, robots, privacy boundary, and Dashboard hash.
+
+If the custom-domain binding, DNS, or certificate state is faulty and a full domain rollback is required:
+
+1. Stop further cutover changes and record the failing deployment and public behavior.
+2. Restore the deployable workflow to the validated `github-pages` profile and rebuild its known-good project-path artifact.
+3. Remove `gu-xin.com` from repository **Settings → Pages** when the binding must be withdrawn.
+4. Remove the four cutover apex `A` records and the cutover `www` `CNAME` from Cloudflare.
+5. Retain the GitHub account-level ownership-verification TXT record.
+6. Deploy the reviewed `github-pages` artifact from `main`.
+7. Verify `https://kkkrrrkrkr.github.io/personal-portfolio/`, all Portfolio routes and assets, metadata, robots, sitemap, the Dashboard route, and the frozen Dashboard SHA-256.
+
+Do not add a repository `CNAME` file, enable Cloudflare proxying as a rollback shortcut, remove the ownership-verification TXT record, force-push, or rewrite history.
+
 ## Dashboard rollback
 
 Restore both files from the last validated release commit:
@@ -40,7 +56,7 @@ Verify the restored hash before deploying:
 Get-FileHash -Algorithm SHA256 deploy/rf-dashboard-light/index.html
 ```
 
-Run `npm run build:deploy` and `npm run validate:deploy -- --context=production` from `website/`, then deploy through a reviewed commit. The immutable original Dashboard source is not required for rollback.
+Run the matching `npm run build:validate:custom-domain` or `npm run build:validate:github-pages` profile from `website/`, then deploy through a reviewed commit. The immutable original Dashboard source is not required for rollback.
 
 ## Hide the RF action without removing the case study
 
