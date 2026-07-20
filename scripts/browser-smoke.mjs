@@ -347,20 +347,111 @@ try {
   await navigate("/contact/");
   const contactState = await evaluate(`(() => {
     const methods = document.querySelector('.contact-methods');
+    const email = methods.querySelector('a[href="mailto:guxin1943@gmail.com"]');
+    const github = methods.querySelector('a[href="https://github.com/KKKRRRKRKR"]');
+    const linkHeight = (link) => link ? link.getBoundingClientRect().height : 0;
     return {
       labels: [...methods.querySelectorAll('dt')].map(item => item.textContent.trim()),
-      interactive: methods.querySelectorAll('a, button, input, textarea, select').length
+      anchors: methods.querySelectorAll('a').length,
+      nonLinkControls: methods.querySelectorAll('button, input, textarea, select').length,
+      emailCount: methods.querySelectorAll('a[href="mailto:guxin1943@gmail.com"]').length,
+      githubCount: methods.querySelectorAll('a[href="https://github.com/KKKRRRKRKR"]').length,
+      emailText: email?.textContent.trim(),
+      githubText: github?.textContent.trim(),
+      emailFocusable: email?.tabIndex >= 0,
+      githubFocusable: github?.tabIndex >= 0,
+      emailTargetHeight: linkHeight(email),
+      githubTargetHeight: linkHeight(github),
+      githubTarget: github?.getAttribute('target'),
+      githubRel: github?.getAttribute('rel'),
+      linkedInPresent: /LinkedIn/i.test(document.body.textContent),
+      placeholderPresent: methods.textContent.includes('—')
     };
   })()`);
   assert(
-    ["Email", "LinkedIn", "GitHub"].every((label) =>
-      contactState.labels.includes(label),
-    ),
-    "Contact placeholders are incomplete.",
+    contactState.labels.length === 2 &&
+      contactState.labels[0] === "Email" &&
+      contactState.labels[1] === "GitHub",
+    "Contact must expose only the approved Email and GitHub labels.",
   );
   assert(
-    contactState.interactive === 0,
-    "Contact placeholders became interactive.",
+    contactState.anchors === 2 &&
+      contactState.nonLinkControls === 0 &&
+      contactState.emailCount === 1 &&
+      contactState.githubCount === 1,
+    "Contact must contain exactly the two approved native links.",
+  );
+  assert(
+    contactState.emailText === "guxin1943@gmail.com" &&
+      contactState.githubText === "github.com/KKKRRRKRKR",
+    "Contact link text is incorrect.",
+  );
+  assert(
+    contactState.emailFocusable &&
+      contactState.githubFocusable &&
+      contactState.emailTargetHeight >= 44 &&
+      contactState.githubTargetHeight >= 44,
+    "Contact links are not comfortably keyboard- and mobile-accessible.",
+  );
+  assert(
+    contactState.githubTarget === "_blank" &&
+      contactState.githubRel === "noopener noreferrer",
+    "GitHub contact link is missing safe new-tab semantics.",
+  );
+  assert(
+    !contactState.linkedInPresent && !contactState.placeholderPresent,
+    "Contact retains LinkedIn or placeholder-only content.",
+  );
+  await evaluate(`(() => {
+    const lead = document.querySelector('.contact-section p');
+    lead.tabIndex = -1;
+    lead.focus();
+  })()`);
+  await send("Input.dispatchKeyEvent", {
+    type: "rawKeyDown",
+    key: "Tab",
+    code: "Tab",
+    windowsVirtualKeyCode: 9,
+    nativeVirtualKeyCode: 9,
+  });
+  await send("Input.dispatchKeyEvent", {
+    type: "keyUp",
+    key: "Tab",
+    code: "Tab",
+    windowsVirtualKeyCode: 9,
+    nativeVirtualKeyCode: 9,
+  });
+  const emailFocusVisible = await evaluate(`(() => {
+    const style = getComputedStyle(document.activeElement);
+    return document.activeElement.getAttribute('href') === 'mailto:guxin1943@gmail.com' &&
+      (style.outlineStyle !== 'none' || style.boxShadow !== 'none');
+  })()`);
+  assert(
+    emailFocusVisible,
+    "Email contact link has no visible focus treatment.",
+  );
+  await send("Input.dispatchKeyEvent", {
+    type: "rawKeyDown",
+    key: "Tab",
+    code: "Tab",
+    windowsVirtualKeyCode: 9,
+    nativeVirtualKeyCode: 9,
+  });
+  await send("Input.dispatchKeyEvent", {
+    type: "keyUp",
+    key: "Tab",
+    code: "Tab",
+    windowsVirtualKeyCode: 9,
+    nativeVirtualKeyCode: 9,
+  });
+  const githubFocusVisible = await evaluate(`(() => {
+    const style = getComputedStyle(document.activeElement);
+    return document.activeElement.getAttribute('href') === 'https://github.com/KKKRRRKRKR' &&
+      (style.outlineStyle !== 'none' || style.boxShadow !== 'none');
+  })()`);
+  assert(
+    githubFocusVisible,
+    "GitHub contact link has no visible focus treatment.",
   );
   await screenshot("portfolio-contact-390.png");
 

@@ -3,7 +3,11 @@ import type { ReactNode } from "react";
 
 import "./globals.css";
 import { SiteShell } from "@/components/site-shell";
-import { siteAssetPath, siteConfig } from "@/content/site";
+import {
+  personStructuredData,
+  siteAssetPath,
+  siteConfig,
+} from "@/content/site";
 
 const isPreview = siteConfig.deploymentContext === "preview";
 
@@ -42,6 +46,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(personStructuredData).replace(
+              /</g,
+              "\\u003c",
+            ),
+          }}
+        />
         <SiteShell>{children}</SiteShell>
       </body>
     </html>

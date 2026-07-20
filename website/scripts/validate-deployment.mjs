@@ -293,10 +293,9 @@ for (const pattern of forbiddenLocalPatterns) {
 
 const allPortfolioOutput = [...routeOutputs.values()].join("\n");
 const forbiddenPortfolioRuntimePatterns = [
-  /<script[^>]+src=["']https?:\/\//i,
-  /<link[^>]+rel=["']stylesheet["'][^>]+href=["']https?:\/\//i,
+  /<(?:script|iframe|img|source|video|audio)\b[^>]+(?:src|poster)=["']https?:\/\//i,
+  /<link\b[^>]+rel=["'](?:stylesheet|preconnect|dns-prefetch|modulepreload|preload)["'][^>]+href=["']https?:\/\//i,
   /google-analytics|googletagmanager|plausible|segment\.com|mixpanel|posthog|hotjar/i,
-  /mailto:/i,
 ];
 
 for (const pattern of forbiddenPortfolioRuntimePatterns) {
@@ -372,6 +371,14 @@ for (const [pathname, html] of routeOutputs) {
 for (const cssFile of outputFiles.filter((file) => file.endsWith(".css"))) {
   const css = await readOutput(cssFile);
   for (const match of css.matchAll(/url\((?:"|')?([^"')]+)(?:"|')?\)/g)) {
+    if (
+      /^https?:\/\//i.test(match[1]) &&
+      new URL(match[1]).origin !== new URL(siteUrl).origin
+    ) {
+      throw new Error(
+        `${cssFile} contains an external runtime asset: ${match[1]}.`,
+      );
+    }
     const outputPath = internalOutputPath(match[1], cssFile);
     if (outputPath && !outputFiles.includes(outputPath)) {
       throw new Error(
@@ -384,13 +391,79 @@ for (const cssFile of outputFiles.filter((file) => file.endsWith(".css"))) {
 const contactMethods = contact.match(
   /<dl class="contact-methods">([\s\S]*?)<\/dl>/,
 )?.[1];
-if (!contactMethods || /<a\b|<button\b/i.test(contactMethods)) {
-  throw new Error("Contact placeholders must exist and remain noninteractive.");
+if (!contactMethods) {
+  throw new Error("Contact methods are missing.");
 }
-for (const label of ["Email", "LinkedIn", "GitHub"]) {
-  if (!contactMethods.includes(`<dt>${label}</dt><dd>—</dd>`)) {
-    throw new Error(`Contact placeholder is missing: ${label}.`);
+
+const contactAnchors = [...contactMethods.matchAll(/<a\b[^>]*>/g)].map(
+  (match) => ({ tag: match[0], attributes: parseAttributes(match[0]) }),
+);
+const emailAnchors = contactAnchors.filter(
+  (entry) => entry.attributes.get("href") === "mailto:guxin1943@gmail.com",
+);
+const githubAnchors = contactAnchors.filter(
+  (entry) => entry.attributes.get("href") === "https://github.com/KKKRRRKRKR",
+);
+
+if (contactAnchors.length !== 2 || emailAnchors.length !== 1) {
+  throw new Error("Contact must contain exactly one approved Email link.");
+}
+if (githubAnchors.length !== 1) {
+  throw new Error("Contact must contain exactly one approved GitHub link.");
+}
+if (
+  githubAnchors[0].attributes.get("target") !== "_blank" ||
+  githubAnchors[0].attributes.get("rel") !== "noopener noreferrer"
+) {
+  throw new Error("The GitHub contact link is missing safe new-tab semantics.");
+}
+if (
+  !contactMethods.includes("<dt>Email</dt>") ||
+  !contactMethods.includes("<dt>GitHub</dt>") ||
+  /LinkedIn/i.test(contactMethods) ||
+  /<dd>\s*—\s*<\/dd>/.test(contactMethods) ||
+  /<(?:button|input|textarea|select)\b/i.test(contactMethods)
+) {
+  throw new Error(
+    "Contact labels, destinations, or removed placeholder state are incorrect.",
+  );
+}
+
+for (const [pathname, html] of routeOutputs) {
+  const structuredDataBlocks = [
+    ...html.matchAll(
+      /<script\b[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g,
+    ),
+  ].map((match) => JSON.parse(match[1]));
+  const structuredDataItems = structuredDataBlocks.flatMap((item) =>
+    Array.isArray(item?.["@graph"]) ? item["@graph"] : [item],
+  );
+  const personSchemas = structuredDataItems.filter(
+    (item) => item?.["@type"] === "Person",
+  );
+
+  if (personSchemas.length !== 1) {
+    throw new Error(`${pathname} must contain exactly one Person schema.`);
   }
+
+  const person = personSchemas[0];
+  if (
+    person["@id"] !== `${siteUrl}/#person` ||
+    person.name !== "XG" ||
+    person.url !== `${siteUrl}/` ||
+    person.email !== "mailto:guxin1943@gmail.com" ||
+    !Array.isArray(person.sameAs) ||
+    person.sameAs.length !== 1 ||
+    person.sameAs[0] !== "https://github.com/KKKRRRKRKR" ||
+    "telephone" in person ||
+    "address" in person
+  ) {
+    throw new Error(`${pathname} has incorrect public Person identity data.`);
+  }
+}
+
+if (/LinkedIn/i.test(allPortfolioOutput)) {
+  throw new Error("LinkedIn must not appear in rendered Portfolio output.");
 }
 
 const approvedSitemapUrls = routeDefinitions

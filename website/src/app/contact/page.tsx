@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 
 import { PageIntro } from "@/components/page-intro";
 import { createPageMetadata } from "@/content/metadata";
+import { siteConfig } from "@/content/site";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Contact",
   description:
-    "The current public contact-channel status for XG's engineering portfolio; private destinations remain unpublished.",
+    "Contact XG about spectrum, compliance, and engineering-tool work by email or through the approved GitHub profile.",
   pathname: "/contact",
 });
 
@@ -14,7 +15,7 @@ export default function ContactPage() {
   return (
     <>
       <PageIntro
-        description="Public professional contact destinations have not yet been approved. This page records the current availability without exposing private details."
+        description="For professional inquiries about spectrum, compliance, and engineering tools, use one of the public destinations below."
         eyebrow="Contact"
         title="Contact"
       />
@@ -27,21 +28,30 @@ export default function ContactPage() {
             Public contact methods
           </h2>
           <p>
-            These channels remain intentionally noninteractive until a public
-            destination is approved.
+            Email is the direct channel for inquiries. GitHub provides the
+            public profile for repository and project context.
           </p>
           <dl className="contact-methods">
             <div>
               <dt>Email</dt>
-              <dd>—</dd>
-            </div>
-            <div>
-              <dt>LinkedIn</dt>
-              <dd>—</dd>
+              <dd>
+                <a href={siteConfig.contact.emailUrl}>
+                  {siteConfig.contact.email}
+                </a>
+              </dd>
             </div>
             <div>
               <dt>GitHub</dt>
-              <dd>—</dd>
+              <dd>
+                <a
+                  aria-label="GitHub profile for XG (opens in a new tab)"
+                  href={siteConfig.contact.githubUrl}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  github.com/KKKRRRKRKR
+                </a>
+              </dd>
             </div>
           </dl>
         </div>
